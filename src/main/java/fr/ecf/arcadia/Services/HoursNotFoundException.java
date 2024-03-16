@@ -1,4 +1,4 @@
-package fr.ecf.arcadia.Controllers;
+package fr.ecf.arcadia.Services;
 
 public class HoursNotFoundException  extends RuntimeException{
 

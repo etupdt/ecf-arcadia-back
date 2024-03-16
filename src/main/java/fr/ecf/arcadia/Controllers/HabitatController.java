@@ -2,62 +2,51 @@ package fr.ecf.arcadia.Controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.ecf.arcadia.Services.HabitatService;
 import fr.ecf.arcadia.pojo.Habitat;
-import fr.ecf.arcadia.repositories.HabitatRepository;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
+@RequestMapping(ApiRegistration.API_REST + ApiRegistration.HABITAT)
 public class HabitatController {
 
-    private final HabitatRepository repository;
+    @Autowired
+    private HabitatService habitatService;
 
-    HabitatController(HabitatRepository repository) {
-        this.repository = repository;
+    @GetMapping
+    public List<Habitat> getAllHabitats() {
+        return habitatService.getAllHabitats();
     }
 
-    @GetMapping("/habitats")
-    List<Habitat> all() {
-        return repository.findAll();
-    }
-
-    @PostMapping("/habitats")
-    Habitat newHabitat(@RequestBody Habitat newHabitat) {
-        return repository.save(newHabitat);
+    @PostMapping
+    public Habitat newHabitat(@RequestBody Habitat habitat) {
+        return habitatService.addHabitat(habitat);
     }
     
-    @GetMapping("/habitats/{id}")
-    Habitat one(@PathVariable Long id) {
-        
-        return repository.findById(id)
-            .orElseThrow(() -> new HabitatNotFoundException(id));
+    @GetMapping("/{id}")
+    public Habitat one(@PathVariable Long id) {      
+        return habitatService.getHabitat(id);
     }
 
-    @PutMapping("/habitats/{id}")
-    Habitat replaceHabitat(@RequestBody Habitat newHabitat, @PathVariable Long id) {
-        
-        return repository.findById(id)
-        .map(habitat -> {
-            habitat.setName(newHabitat.getName());
-            habitat.setDescription(newHabitat.getDescription());
-            habitat.setComment(newHabitat.getComment());
-            return repository.save(habitat);
-        })
-        .orElseGet(() -> {
-            newHabitat.setId(id);
-            return repository.save(newHabitat);
-        });
+    @PutMapping("/{id}")
+    public Habitat uodateHabitat(@RequestBody Habitat habitat, @PathVariable Long id) {        
+        return habitatService.updateHabitat(habitat, id);
     }
 
-    @DeleteMapping("/habitats/{id}")
-    void deleteHabitat(@PathVariable Long id) {
-        repository.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteHabitat(@PathVariable Long id) {
+        habitatService.deleteHabitat(id);
     }
     
 }
