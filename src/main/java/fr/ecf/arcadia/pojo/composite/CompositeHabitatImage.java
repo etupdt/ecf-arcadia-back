@@ -2,7 +2,7 @@ package fr.ecf.arcadia.pojo.composite;
 
 import java.io.Serializable;
 
-public class CompositeHabitatImage implements Serializable{
+public class CompositeHabitatImage implements Serializable {
 
     private Long habitat_id;
 

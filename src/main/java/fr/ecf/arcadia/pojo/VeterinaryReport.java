@@ -25,10 +25,11 @@ public class VeterinaryReport {
     private String detail;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_animal")
     private Animal animal;
 
     @ManyToOne
+    @JoinColumn(name = "id_user")
     private User user;
 
     public VeterinaryReport(LocalDate date, String detail) {

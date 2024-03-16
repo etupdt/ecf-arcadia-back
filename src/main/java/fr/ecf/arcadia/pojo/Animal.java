@@ -23,11 +23,11 @@ public class Animal {
     private String health;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_race")
     private Race race;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_habitat")
     private Habitat habitat;
 
     public Animal(String firstname, String health) {
