@@ -1,0 +1,7 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.maven.userSettings": "",
+    "java.configuration.maven.globalSettings": "",
+    "java.configuration.maven.defaultMojoExecutionAction": "ignore"
+}
