@@ -34,6 +34,8 @@ COPY --chmod=755 target/ecf-arcadia-back.war /usr/local/tomcat/webapps/
 
 WORKDIR $CATALINA_HOME
 
+RUN mkdir -p webapps/ROOT
+
 # let "Tomcat Native" live somewhere isolated
 ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
 ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR

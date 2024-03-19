@@ -1,5 +1,6 @@
 package fr.ecf.arcadia.pojo;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +31,14 @@ public class Habitat {
     private String description;
 
     private String comment;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "habitat_image",
+            joinColumns = {@JoinColumn(name = "habitat_id")},
+            inverseJoinColumns = {@JoinColumn(name = "image_id")}
+    )
+    private List<Image> images;
 
     @JsonIgnoreProperties(value = {"habitat"}, allowSetters = true)
     @OneToMany(mappedBy = "habitat", cascade = CascadeType.ALL)
