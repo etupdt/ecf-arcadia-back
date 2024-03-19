@@ -1,5 +1,7 @@
 package fr.ecf.arcadia.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +29,8 @@ public class Animal {
     @JoinColumn(name = "id_race")
     private Race race;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"animals"}, allowSetters = true)
+    @ManyToOne()
     @JoinColumn(name = "id_habitat")
     private Habitat habitat;
 
