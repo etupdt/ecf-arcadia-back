@@ -44,7 +44,6 @@ public class Habitat {
     @OneToMany(mappedBy = "habitat", cascade = CascadeType.ALL)
     private Set<Animal> animals;
 
-
     public Habitat(String name, String description, String comment) {
 
         this.name = name;

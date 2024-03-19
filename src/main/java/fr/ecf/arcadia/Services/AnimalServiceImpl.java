@@ -5,12 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import fr.ecf.arcadia.pojo.Animal;
+import fr.ecf.arcadia.pojo.Image;
 import fr.ecf.arcadia.repositories.AnimalRepository;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
+
+    @Autowired
+    private FileService fileService;
 
     @Autowired
     private AnimalRepository repository;
@@ -24,8 +31,18 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal addAnimal(Animal animal) {
+    public Animal addAnimal(MultipartFile file, String animalInText) {
+
+        Gson gson = new Gson();
+        Animal animal = gson.fromJson(animalInText, Animal.class); 
+
+        for (Image image : animal.getImages()) {
+            image.setImageName(this.fileService.saveUploadedFile(file));
+            break;
+        }
+
         return repository.save(animal);
+
     }
     
     @Override

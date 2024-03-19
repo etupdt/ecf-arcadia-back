@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 public class FileService {
 
-    private String fileBasePath = "./webapps/ROOT/";
+    private String fileBasePath = "./webapps/ROOT/images/";
 
     public FileService() {
 
