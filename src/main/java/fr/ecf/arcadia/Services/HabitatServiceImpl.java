@@ -37,7 +37,7 @@ public class HabitatServiceImpl implements HabitatService {
         Habitat habitat = gson.fromJson(habitatInText, Habitat.class); 
 
         for (Image image : habitat.getImages()) {
-            image.setImageName(this.fileService.saveUploadedFile(file));
+            image.setImageName(this.fileService.saveUploadedFile(file, "habitat_" + habitat.getName()));
             break;
         }
 

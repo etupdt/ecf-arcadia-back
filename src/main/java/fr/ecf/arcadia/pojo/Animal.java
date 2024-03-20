@@ -34,7 +34,7 @@ public class Animal {
     private Race race;
 
     @JsonIgnoreProperties(value = {"animals"}, allowSetters = true)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_habitat")
     private Habitat habitat;
 

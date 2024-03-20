@@ -37,7 +37,7 @@ public class AnimalServiceImpl implements AnimalService {
         Animal animal = gson.fromJson(animalInText, Animal.class); 
 
         for (Image image : animal.getImages()) {
-            image.setImageName(this.fileService.saveUploadedFile(file));
+            image.setImageName(this.fileService.saveUploadedFile(file, "animal_" + animal.getFirstname()));
             break;
         }
 

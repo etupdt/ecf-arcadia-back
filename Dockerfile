@@ -21,27 +21,22 @@
 
 FROM eclipse-temurin:21-jre-jammy
 
-ENV DB_URL 192.168.1.37
-ENV DB_DATABASE arcadia
-ENV DB_USER arcadia
-ENV DB_PASSWORD password
+ARG ENV
+ARG CATALINA_HOME
 
-ENV CATALINA_HOME /usr/local/tomcat
+ENV CATALINA_HOME $CATALINA_HOME
 ENV PATH $CATALINA_HOME/bin:$PATH
-RUN mkdir -p "$CATALINA_HOME"
-
-COPY --chmod=755 target/ecf-arcadia-back.war /usr/local/tomcat/webapps/
+# RUN mkdir -p "$CATALINA_HOME"
 
 WORKDIR $CATALINA_HOME
 
-RUN mkdir -p webapps/ROOT/images
+COPY --chmod=755 target/ecf-arcadia-back.war ./webapps/
+COPY --chmod=755 src/main/resources/$ENV/ ./lib/
 
 # let "Tomcat Native" live somewhere isolated
 ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
 ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
 
-# see https://www.apache.org/dist/tomcat/tomcat-11/KEYS
-# see also "versions.sh" (https://github.com/docker-library/tomcat/blob/master/versions.sh)
 ENV GPG_KEYS A9C5DF4D22E99998D9875A5110C01C5A2F6059E7
 
 ENV TOMCAT_MAJOR 11

@@ -48,7 +48,7 @@ public class HabitatController {
     }
 
     @PutMapping("/{id}")
-    public Habitat uodateHabitat(@RequestBody Habitat habitat, @PathVariable Long id) {        
+    public Habitat updateHabitat(@RequestBody Habitat habitat, @PathVariable Long id) {        
         return habitatService.updateHabitat(habitat, id);
     }
 

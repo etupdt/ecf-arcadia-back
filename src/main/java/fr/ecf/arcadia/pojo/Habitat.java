@@ -41,7 +41,7 @@ public class Habitat {
     private List<Image> images;
 
     @JsonIgnoreProperties(value = {"habitat"}, allowSetters = true)
-    @OneToMany(mappedBy = "habitat", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "habitat")
     private Set<Animal> animals;
 
     public Habitat(String name, String description, String comment) {

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.ecf.arcadia.Services.ViewService;
 import fr.ecf.arcadia.pojo.View;
 
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(ApiRegistration.API_REST + ApiRegistration.VIEW)
 public class ViewController {
