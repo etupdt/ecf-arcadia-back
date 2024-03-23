@@ -94,7 +94,9 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,visualstudiocode,maven
 
 env.properties
-env.prod.properties
+env.dev.properties
 application.properties
 
 docker-compose-dev.yml
+
+*.gz

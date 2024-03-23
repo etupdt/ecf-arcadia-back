@@ -21,17 +21,17 @@
 
 FROM eclipse-temurin:21-jre-jammy
 
-ARG ENV
+# ARG ENV
 ARG CATALINA_HOME
 
 ENV CATALINA_HOME $CATALINA_HOME
 ENV PATH $CATALINA_HOME/bin:$PATH
-# RUN mkdir -p "$CATALINA_HOME"
+RUN mkdir -p "$CATALINA_HOME"/lib
 
 WORKDIR $CATALINA_HOME
 
 COPY --chmod=755 target/ecf-arcadia-back.war ./webapps/
-COPY --chmod=755 src/main/resources/$ENV/ ./lib/
+COPY --chmod=755 src/main/resources/server/application.properties ./lib
 
 # let "Tomcat Native" live somewhere isolated
 ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
