@@ -19,39 +19,39 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.ecf.arcadia.Services.HabitatService;
-import fr.ecf.arcadia.pojo.Habitat;
+import fr.ecf.arcadia.Services.ServiceService;
+import fr.ecf.arcadia.pojo.Service;
 
 import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.*;
 
 @WebMvcTest({
-    HabitatController.class
+    ServiceController.class
 })
 @TestPropertySource("classpath:application-integrationtest.properties")
 @Import(ControllersTestContextConfiguration.class)
-public class HabitatControllerIntegrationTest {
+public class ServiceControllerIntegrationTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(HabitatControllerIntegrationTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServiceControllerIntegrationTest.class);
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private HabitatService habitatService;
+    private ServiceService serviceService;
 
     @Autowired
-    private Habitat savane;
+    private Service restaurant;
 
     @Autowired
     private MockMultipartFile image;
 
     @Autowired
-    private List<Habitat> habitats;
+    private List<Service> services;
 
     @Test
-    public void givenControllers_whenGetHabitats_thenStatus200() throws Exception {
+    public void givenControllers_whenGetServices_thenStatus200() throws Exception {
 
         this.testControllerPost();
         this.testControllerGets();
@@ -60,30 +60,29 @@ public class HabitatControllerIntegrationTest {
     
     public void testControllerPost() throws Exception {
 
-        logger.info("===========> executing post habitat test");
+        logger.info("===========> executing post service test");
 
-        Mockito.when(habitatService.addHabitat(Mockito.any(MultipartFile.class), Mockito.any(String.class))).thenReturn(savane);
+        Mockito.when(serviceService.addService(Mockito.any(Service.class))).thenReturn(restaurant);
 
-        mvc.perform(MockMvcRequestBuilders.multipart("/api/habitats")
-                .file("file", image.getBytes())
-                .param("habitatInText", new ObjectMapper().writeValueAsString(savane))
-                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-            )
+        mvc.perform(MockMvcRequestBuilders.post("/api/services")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(restaurant))
+                )
             .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("Savane")));
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("Restaurant")));
     }
     
     public void testControllerGets() throws Exception {
 
-        logger.info("===========> executing gat habitats test");
+        logger.info("===========> executing gat services test");
 
-        Mockito.when(habitatService.getAllHabitats()).thenReturn(habitats);
+        Mockito.when(serviceService.getAllServices()).thenReturn(services);
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/habitats")
+        mvc.perform(MockMvcRequestBuilders.get("/api/services")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(01)))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", is("Savane")));
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", is("Restaurant")));
   
     }
     

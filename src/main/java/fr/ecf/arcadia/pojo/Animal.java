@@ -46,10 +46,11 @@ public class Animal {
     )
     private List<Image> images;
 
-    public Animal(String firstname, String health) {
+    public Animal(String firstname, String health, List<Image> images) {
 
         this.firstname = firstname;
         this.health = health;
+        this.images = images;
 
     }
 

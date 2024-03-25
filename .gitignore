@@ -96,7 +96,7 @@ $RECYCLE.BIN/
 webapps/
 
 application
-test-context.xml
+# test-context.xml
 
 env.properties
 env.dev.properties
