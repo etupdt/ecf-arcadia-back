@@ -93,6 +93,11 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,visualstudiocode,maven
 
+webapps/
+
+application
+test-context.xml
+
 env.properties
 env.dev.properties
 application.properties

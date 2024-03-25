@@ -17,7 +17,7 @@ import fr.ecf.arcadia.repositories.AnimalRepository;
 public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
-    private FileService fileService;
+    private AppFileService fileService;
 
     @Autowired
     private AnimalRepository repository;

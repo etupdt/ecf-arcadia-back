@@ -44,11 +44,12 @@ public class Habitat {
     @OneToMany(mappedBy = "habitat")
     private Set<Animal> animals;
 
-    public Habitat(String name, String description, String comment) {
+    public Habitat(String name, String description, String comment, List<Image> images) {
 
         this.name = name;
         this.description = description;
         this.comment = comment;
+        this.images = images;
 
     }
 

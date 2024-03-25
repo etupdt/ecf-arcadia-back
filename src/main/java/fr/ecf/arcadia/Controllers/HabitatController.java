@@ -2,8 +2,9 @@ package fr.ecf.arcadia.Controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,8 @@ import fr.ecf.arcadia.pojo.Habitat;
 @RequestMapping(ApiRegistration.API_REST + ApiRegistration.HABITAT)
 public class HabitatController {
 
+    private static final Logger logger = LoggerFactory.getLogger(HabitatController.class);
+
     @Autowired
     private HabitatService habitatService;
 
@@ -34,13 +37,11 @@ public class HabitatController {
 
     @PostMapping
     public Habitat newHabitat(@RequestParam("file") MultipartFile file, @RequestParam String habitatInText) {
+
+        logger.debug("===========> executing controller newHabitat ");
         return habitatService.addHabitat(file, habitatInText);
+
     }
-    
-    // @PostMapping
-    // public Habitat newHabitat(@RequestBody Habitat habitat) {
-    //     return habitatService.addHabitat(habitat);
-    // }
     
     @GetMapping("/{id}")
     public Habitat one(@PathVariable Long id) {      

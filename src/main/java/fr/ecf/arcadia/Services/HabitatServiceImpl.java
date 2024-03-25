@@ -2,6 +2,8 @@ package fr.ecf.arcadia.Services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,10 @@ import fr.ecf.arcadia.repositories.HabitatRepository;
 @Service
 public class HabitatServiceImpl implements HabitatService {
 
+    private static final Logger logger = LoggerFactory.getLogger(HabitatService.class);
+
     @Autowired
-    private FileService fileService;
+    private AppFileService fileService;
 
     @Autowired
     private HabitatRepository repository;
@@ -33,14 +37,16 @@ public class HabitatServiceImpl implements HabitatService {
     @Override
     public Habitat addHabitat(MultipartFile file, String habitatInText) {
 
+        logger.debug("=============> executing service addHabitat ");
+
         Gson gson = new Gson();
         Habitat habitat = gson.fromJson(habitatInText, Habitat.class); 
-
+        
         for (Image image : habitat.getImages()) {
             image.setImageName(this.fileService.saveUploadedFile(file, "habitat_" + habitat.getName()));
             break;
-        }
-
+        }    
+        
         return repository.save(habitat);
 
     }

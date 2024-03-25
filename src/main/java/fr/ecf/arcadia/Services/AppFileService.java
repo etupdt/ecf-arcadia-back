@@ -10,6 +10,9 @@ import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
@@ -19,17 +22,19 @@ import org.slf4j.LoggerFactory;
 import lombok.Getter;
 import lombok.Setter;
 
-@Component("fileService")
+@Component("appFileService")
 @Getter
 @Setter
-public class FileService {
+public class AppFileService {
+    
+    @Autowired
+    private Environment environment;    
 
     private String fileBasePath = "." + File.separator + "webapps" + File.separator + "ROOT" + File.separator + "images" + File.separator ;
 
-    private static final Logger logger = LoggerFactory.getLogger(FileService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppFileService.class);
     
-    public FileService() {
-
+    public AppFileService() {
     }
 
     public String saveUploadedFile(MultipartFile file, String objectName) {
@@ -53,21 +58,13 @@ public class FileService {
         try {
             Files.copy(file.getInputStream(), new File(fileBasePath + fileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            logger.error("error lors de la copie du fichier");
+            logger.error("error lors de la copie du fichier " + fileName);
             e.printStackTrace();
         }
 
         logger.info("file copie ok");
 
         return fileName;
-        // return ServletUriComponentsBuilder.fromCurrentContextPath()
-		// 	.path("/tmp/")
-		// 	.path(fileName)
-		// 	.toUriString();
-
-    }
-
-    public void download() {
 
     }
 
