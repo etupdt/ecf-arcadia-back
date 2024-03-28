@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -28,8 +29,10 @@ public class Habitat {
 
     private String name;
 
+    @Lob
     private String description;
 
+    @Lob
     private String comment;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -41,7 +44,7 @@ public class Habitat {
     private List<Image> images;
 
     @JsonIgnoreProperties(value = {"habitat"}, allowSetters = true)
-    @OneToMany(mappedBy = "habitat")
+    @OneToMany(mappedBy = "habitat", cascade = CascadeType.REMOVE)
     private Set<Animal> animals;
 
     public Habitat(String name, String description, String comment, List<Image> images) {

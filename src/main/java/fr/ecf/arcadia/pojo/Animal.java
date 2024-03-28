@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
@@ -29,7 +30,10 @@ public class Animal {
 
     private String health;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Lob
+    private String description;
+
+    @ManyToOne
     @JoinColumn(name = "id_race")
     private Race race;
 
@@ -46,11 +50,12 @@ public class Animal {
     )
     private List<Image> images;
 
-    public Animal(String firstname, String health, List<Image> images) {
+    public Animal(String firstname, String health, List<Image> images, String description) {
 
         this.firstname = firstname;
         this.health = health;
         this.images = images;
+        this.description = description;
 
     }
 
