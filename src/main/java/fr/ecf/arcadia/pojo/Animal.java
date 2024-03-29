@@ -53,8 +53,8 @@ public class Animal {
     private List<Image> images;
 
     @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
-    @OneToMany(mappedBy = "animal", cascade = CascadeType.DETACH)
-    private Set<VeterinaryReport> veterinaryReports;
+    @OneToMany(mappedBy = "animal")
+    private Set<FoodAnimal> foodAnimals;
 
     public Animal(String firstname, String health, List<Image> images, String description) {
 

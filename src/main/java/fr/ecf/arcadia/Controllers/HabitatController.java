@@ -37,10 +37,7 @@ public class HabitatController {
 
     @PostMapping
     public Habitat newHabitat(@RequestParam("file") MultipartFile file, @RequestParam String habitatInText) {
-
-        logger.debug("===========> executing controller newHabitat ");
         return habitatService.addHabitat(file, habitatInText);
-
     }
     
     @GetMapping("/{id}")
