@@ -402,7 +402,7 @@
                               ]
                  },
                  {
-                     "name":  "step 10 foodAnimals",
+                     "name":  "step 10 foodanimals",
                      "item":  [
                                   {
                                       "name":  "insert Copy",
@@ -413,7 +413,7 @@
                                                                  ],
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\r\n    \"gramage\": \"{{gramage}}\",\r\n    \"dateFood\": \"{{dateFood}}\",\r\n    \"food\": \"{{food}}\",\r\n    \"animal\": \"{{animal}}\",\r\n}",
+                                                                   "raw":  "{\r\n    \"gramage\": \"{{gramage}}\",\r\n    \"dateFood\": \"{{dateFood}}\",\r\n    \"food\": {\r\n        \"id\": \"{{food}}\"\r\n    },\r\n    \"animal\": {\r\n        \"id\": \"{{animal}}\"\r\n    }\r\n}",
                                                                    "options":  {
                                                                                    "raw":  {
                                                                                                "language":  "json"
