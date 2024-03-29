@@ -2,6 +2,8 @@ package fr.ecf.arcadia.pojo;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,10 +26,12 @@ public class FoodAnimal {
 
     private LocalDate dateFood;
 
+    @JsonIgnoreProperties(value = {"foodAnimals"}, allowSetters = true)
     @ManyToOne
     @JoinColumn(name = "id_food")
     private Food food;
 
+    @JsonIgnoreProperties(value = {"foodAnimals"}, allowSetters = true)
     @ManyToOne
     @JoinColumn(name = "id_animal")
     private Animal animal;
