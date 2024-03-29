@@ -2,8 +2,6 @@ package fr.ecf.arcadia.Controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import fr.ecf.arcadia.Services.FoodAnimalService;
 import fr.ecf.arcadia.pojo.FoodAnimal;
@@ -25,28 +21,26 @@ import fr.ecf.arcadia.pojo.FoodAnimal;
 @RequestMapping(ApiRegistration.API_REST + ApiRegistration.FOODANIMAL)
 public class FoodAnimalController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FoodAnimalController.class);
-
     @Autowired
     private FoodAnimalService foodAnimalService;
 
     @GetMapping
-    public List<FoodAnimalController> getAllFoodAnimals() {
+    public List<FoodAnimal> getAllFoodAnimals() {
         return foodAnimalService.getAllFoodAnimals();
     }
 
     @PostMapping
-    public FoodAnimalController newFoodAnimal(@RequestParam("file") MultipartFile file, @RequestParam String foodAnimalInText) {
-        return foodAnimalService.addFoodAnimal(file, foodAnimalInText);
+    public FoodAnimal newFoodAnimal(@RequestBody FoodAnimal foodAnimal) {
+        return foodAnimalService.addFoodAnimal(foodAnimal);
     }
     
     @GetMapping("/{id}")
-    public FoodAnimalController one(@PathVariable Long id) {      
+    public FoodAnimal one(@PathVariable Long id) {      
         return foodAnimalService.getFoodAnimal(id);
     }
 
     @PutMapping("/{id}")
-    public FoodAnimalController updateFoodAnimal(@RequestBody FoodAnimalController foodAnimal, @PathVariable Long id) {        
+    public FoodAnimal updateFoodAnimal(@RequestBody FoodAnimal foodAnimal, @PathVariable Long id) {        
         return foodAnimalService.updateFoodAnimal(foodAnimal, id);
     }
 
