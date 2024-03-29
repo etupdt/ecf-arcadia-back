@@ -32,10 +32,12 @@ public class FoodAnimal {
     @JoinColumn(name = "id_animal")
     private Animal animal;
 
-    public FoodAnimal(int gramage, LocalDate dateFood) {
+    public FoodAnimal(int gramage, LocalDate dateFood, Food food, Animal animal) {
 
         this.gramage = gramage;
         this.dateFood = dateFood;
+        this.food = food;
+        this.animal = animal;
 
     }
 

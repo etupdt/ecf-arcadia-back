@@ -16,4 +16,6 @@ public interface ApiRegistration {
     
     final String VIEW = "views";
     
+    final String FOODANIMAL = "foodanimals";
+    
 }
