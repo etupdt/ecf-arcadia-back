@@ -1,5 +1,8 @@
+// newman run .\Mocks\Step1-runArcadia.json -e .\mocks\ecf-arcadia-back_env.json -d .\mocks\habitats.json --export-globals ./mocks/var.txt --verbose
+
 package fr.ecf.arcadia.Services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Animal;
 import fr.ecf.arcadia.pojo.Image;
@@ -33,7 +37,11 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public Animal addAnimal(MultipartFile file, String animalInText) {
 
-        Gson gson = new Gson();
+        // Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+        .create();
+
         Animal animal = gson.fromJson(animalInText, Animal.class); 
 
         for (Image image : animal.getImages()) {

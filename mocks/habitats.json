@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Savane",
+        "description": "Sec et chaud",
+        "comment": "La savanne est sèche et chaude",
+        "imageName": "Savane",
+        "imageFile": "Savane.jpg"
+    },
+    {
+        "name": "Jungle",
+        "description": "humide et chaud",
+        "comment": "Humide et chaud",
+        "imageName": "Jungle",
+        "imageFile": "Jungle.jpeg"
+    },
+    {
+        "name": "Marais",
+        "description": "humide et glauque",
+        "comment": "Humide et glauque",
+        "imageName": "Marais",
+        "imageFile": "Marais.jpeg"
+    }
+]

@@ -1,5 +1,6 @@
 package fr.ecf.arcadia.Services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Habitat;
 import fr.ecf.arcadia.pojo.Image;
@@ -39,7 +41,9 @@ public class HabitatServiceImpl implements HabitatService {
 
         logger.debug("=============> executing service addHabitat ");
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+        .create();
         Habitat habitat = gson.fromJson(habitatInText, Habitat.class); 
         
         for (Image image : habitat.getImages()) {

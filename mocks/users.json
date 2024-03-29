@@ -1,0 +1,23 @@
+[
+    {
+        "username": "veto1@arcadia.com",
+        "password": "",
+        "firstname" : "Veto1",
+        "lastname" : "Jules",
+        "roles" : "['ROLE_VETO']"
+    },
+    {
+        "username": "boss@arcadia.com",
+        "password": "",
+        "firstname" : "Boss",
+        "lastname" : "Arnaud",
+        "roles" : "['ROLE_ADMIN']"
+    },
+    {
+        "username": "veto2@arcadia.com",
+        "password": "",
+        "firstname" : "Veto2",
+        "lastname" : "Yves",
+        "roles" : "['ROLE_VETO']"
+    }
+]

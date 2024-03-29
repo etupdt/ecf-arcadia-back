@@ -1,6 +1,7 @@
 package fr.ecf.arcadia.pojo;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +51,10 @@ public class Animal {
             inverseJoinColumns = {@JoinColumn(name = "image_id")}
     )
     private List<Image> images;
+
+    @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.DETACH)
+    private Set<VeterinaryReport> veterinaryReports;
 
     public Animal(String firstname, String health, List<Image> images, String description) {
 

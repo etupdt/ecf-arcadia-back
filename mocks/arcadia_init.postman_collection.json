@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "a267d264-c4f4-44ba-9e2f-b1c4b9798722",
+		"name": "arcadia_init",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5429213"
+	},
+	"item": [
+		{
+			"name": "step 1 habitats",
+			"item": [
+				{
+					"name": "insert habitats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "habitatInText",
+									"value": "{\n        \"name\": \"{{name}}\",\n        \"description\": \"{{description}}\",\n        \"comment\": \"{{comment}}\",\n        \"images\": [\n            {\n                \"imageName\": \"{{imageName}}\"\n            }\n        ],\n        \"animals\": []\n    }",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/denis/OneDrive Gmail/OneDrive/Studi/Evaluations/Arcadia/images/savane.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}habitats",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}habitats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 2 races",
+			"item": [
+				{
+					"name": "insert races",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"let race_id = pm.response.json().id\r",
+									"\r",
+									"console.log(\"Id de la race créée\", race_id)\r",
+									"\r",
+									"pm.globals.set(\"race_id\", race_id)\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"label\": \"{{label}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}races",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}races"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 3 animals",
+			"item": [
+				{
+					"name": "insert animals",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"let animal_id = pm.response.json().id\r",
+									"\r",
+									"console.log(\"Id de l'animal créé\", animal_id)\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "animalInText",
+									"value": "    {\n         \"firstname\": \"{{firstname}}\",\n        \"health\": \"{{health}}\",\n        \"race\": {\n            \"id\": {{race}}\n        },\n        \"images\" : [\n             {\n                 \"imageName\": \"{{imageName}}\"\n             }\n        ],\n        \"habitat\": {\n                 \"id\": {{habitat}}\n        }\n    }",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/denis/OneDrive Gmail/OneDrive/Studi/Evaluations/Arcadia/images/Flash1.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}animals",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}animals"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 4 users",
+			"item": [
+				{
+					"name": "insert users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"roles\" : \"{{roles}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}users",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 5 veterinaryreport",
+			"item": [
+				{
+					"name": "insert veterinaryreport",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"detail\": \"{{detail}}\",\r\n    \"animal\": {\r\n        \"id\": {{animal}}\r\n    },\r\n    \"user\": {\r\n        \"id\": {{user}}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}veterinaryreports",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}veterinaryreports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 6 hours",
+			"item": [
+				{
+					"name": "insert hours",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"monday\" : \"{{monday}}\",\r\n    \"tuesday\" : \"{{tuesday}}\",\r\n    \"wednesday\" : \"{{wednesday}}\",\r\n    \"thursday\" : \"{{thursday}}\",\r\n    \"friday\" : \"{{friday}}\",\r\n    \"saturday\" : \"{{saturday}}\",\r\n    \"sunday\" : \"{{sunday}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}services",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}services"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 7 services",
+			"item": [
+				{
+					"name": "insert services",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"{{name}}\",\r\n    \"description\" : \"{{description}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}services",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}services"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 8 views",
+			"item": [
+				{
+					"name": "insert views",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pseudo\": \"{{pseudo}}\",\r\n    \"comment\": \"{{comment}}\",\r\n    \"isVisible\" : {{isVisible}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}views",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}views"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

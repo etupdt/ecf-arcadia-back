@@ -14,6 +14,10 @@ public interface ApiRegistration {
     
     final String SERVICE = "services";
     
+    final String USER = "users";
+    
+    final String VETERINARYREPORT = "veterinaryreports";
+    
     final String VIEW = "views";
     
 }

@@ -55,7 +55,8 @@ public class ControllersTestContextConfiguration {
     static Animal flash = new Animal(
         "Flash",
         "Bonne",
-        List.of(new  Image("image.jpg"))
+        List.of(new  Image("image.jpg")),
+        "description"
     );    
 
     @Bean
