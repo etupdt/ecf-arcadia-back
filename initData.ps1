@@ -1,42 +1,52 @@
 
 $arcadiaTables = @{
-    "1" = @{
+    "01" = @{
         "table" = "habitats";
         "execute" = $true;
         "image" = $true
     };
-    "2" = @{
+    "02" = @{
         "table" = "races";
         "execute" = $true;
         "image" = $false
     };
-    "3" = @{
+    "03" = @{
         "table" = "animals";
         "execute" = $true;
         "image" = $true
     };
-    "4" = @{
+    "04" = @{
         "table" = "users";
         "execute" = $true;
         "image" = $false
     };
-    "5" = @{
+    "05" = @{
         "table" = "veterinaryreport";
         "execute" = $true;
         "image" = $false
     };
-    "6" = @{
+    "06" = @{
         "table" = "hours";
         "execute" = $true;
         "image" = $false
     };
-    "7" = @{
+    "07" = @{
         "table" = "services";
         "execute" = $true;
         "image" = $false
     };
-    "8" = @{
+    "08" = @{
         "table" = "views";
+        "execute" = $true;
+        "image" = $false
+    };
+    "09" = @{
+        "table" = "foods";
+        "execute" = $true;
+        "image" = $false
+    };
+    "10" = @{
+        "table" = "foodanimals";
         "execute" = $true;
         "image" = $false
     };
@@ -55,7 +65,6 @@ foreach ($key in $arcadiaTables.Keys | Sort-Object) {
     if ($arcadiaTable.execute) {
 
         $folder = "step ${key} ${table}"
-        "=====================================> ${folder}"
 
         if ($arcadiaTable.image) {
 
@@ -64,10 +73,8 @@ foreach ($key in $arcadiaTables.Keys | Sort-Object) {
             $entries = @()
 
             foreach ($item in $collection.item) {
-                "====> $folder $($item.name)"
                 if ("$($item.name)" -eq "$folder") { 
                     $entries = $item[0].item.request.body.formdata 
-                    "ooooooooooooo"
                 }
             }
 

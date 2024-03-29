@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "step 1 habitats",
+			"name": "step 01 habitats",
 			"item": [
 				{
 					"name": "insert habitats",
@@ -46,7 +46,7 @@
 			]
 		},
 		{
-			"name": "step 2 races",
+			"name": "step 02 races",
 			"item": [
 				{
 					"name": "insert races",
@@ -107,7 +107,7 @@
 			]
 		},
 		{
-			"name": "step 3 animals",
+			"name": "step 03 animals",
 			"item": [
 				{
 					"name": "insert animals",
@@ -162,7 +162,7 @@
 			]
 		},
 		{
-			"name": "step 4 users",
+			"name": "step 04 users",
 			"item": [
 				{
 					"name": "insert users",
@@ -195,7 +195,7 @@
 			]
 		},
 		{
-			"name": "step 5 veterinaryreport",
+			"name": "step 05 veterinaryreport",
 			"item": [
 				{
 					"name": "insert veterinaryreport",
@@ -204,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"detail\": \"{{detail}}\",\r\n    \"animal\": {\r\n        \"id\": {{animal}}\r\n    },\r\n    \"user\": {\r\n        \"id\": {{user}}\r\n    }\r\n}",
+							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"detail\": \"{{detail}}\",\r\n    \"food\": \"{{food}}\",\r\n    \"gramage\": \"{{gramage}}\",\r\n    \"animal\": {\r\n        \"id\": {{animal}}\r\n    },\r\n    \"user\": {\r\n        \"id\": {{user}}\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,7 +228,7 @@
 			]
 		},
 		{
-			"name": "step 6 hours",
+			"name": "step 06 hours",
 			"item": [
 				{
 					"name": "insert hours",
@@ -261,7 +261,7 @@
 			]
 		},
 		{
-			"name": "step 7 services",
+			"name": "step 07 services",
 			"item": [
 				{
 					"name": "insert services",
@@ -294,7 +294,7 @@
 			]
 		},
 		{
-			"name": "step 8 views",
+			"name": "step 08 views",
 			"item": [
 				{
 					"name": "insert views",
@@ -319,6 +319,72 @@
 							"port": "{{port}}",
 							"path": [
 								"{{project}}{{uri}}views"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 09 foods",
+			"item": [
+				{
+					"name": "insert Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}foods",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}foods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 10 foodanimals",
+			"item": [
+				{
+					"name": "insert Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gramage\": \"{{gramage}}\",\r\n    \"dateFood\": \"{{dateFood}}\",\r\n    \"food\": \"{{food}}\",\r\n    \"animal\": \"{{animal}}\",\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}foodanimals",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}foodanimals"
 							]
 						}
 					},
