@@ -22,4 +22,6 @@ public interface ApiRegistration {
     
     final String FOODANIMAL = "foodanimals";
     
+    final String FOOD = "foods";
+    
 }
