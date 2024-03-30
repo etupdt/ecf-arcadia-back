@@ -40,7 +40,7 @@ public class VeterinaryReportController {
     }
 
     @PutMapping("/{id}")
-    public VeterinaryReport uodateVeterinaryReport(@RequestBody VeterinaryReport veterinaryReport, @PathVariable Long id) {        
+    public VeterinaryReport updateVeterinaryReport(@RequestBody VeterinaryReport veterinaryReport, @PathVariable Long id) {        
         return veterinaryReportService.updateVeterinaryReport(veterinaryReport, id);
     }
 

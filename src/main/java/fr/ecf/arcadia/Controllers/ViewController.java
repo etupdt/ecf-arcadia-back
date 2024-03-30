@@ -40,7 +40,7 @@ public class ViewController {
     }
 
     @PutMapping("/{id}")
-    public View uodateView(@RequestBody View view, @PathVariable Long id) {        
+    public View updateView(@RequestBody View view, @PathVariable Long id) {        
         return viewService.updateView(view, id);
     }
 
