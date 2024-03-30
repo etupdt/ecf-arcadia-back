@@ -23,9 +23,9 @@ public class Food {
 
     private String name;
 
-    @JsonIgnoreProperties(value = {"food"}, allowSetters = true)
-    @OneToMany(mappedBy = "food")
-    private Set<FoodAnimal> foodAnimals;
+    // @JsonIgnoreProperties(value = {"food"}, allowSetters = true)
+    // @OneToMany(mappedBy = "food")
+    // private Set<FoodAnimal> foodAnimals;
 
     public Food(String name) {
 

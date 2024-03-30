@@ -36,11 +36,6 @@ public class AnimalController {
         return animalService.addAnimal(file, animalInText);
     }
     
-    // @PostMapping
-    // public Animal newAnimal(@RequestBody Animal animal) {
-    //     return animalService.addAnimal(animal);
-    // }
-    
     @GetMapping("/{id}")
     public Animal one(@PathVariable Long id) {      
         return animalService.getAnimal(id);

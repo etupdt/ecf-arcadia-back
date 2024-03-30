@@ -24,6 +24,8 @@ public class VeterinaryReport {
 
     private String detail;
 
+    private int gramage;
+
     @ManyToOne
     @JoinColumn(name = "id_animal")
     private Animal animal;
@@ -31,6 +33,10 @@ public class VeterinaryReport {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_food")
+    private Food food;
 
     public VeterinaryReport(LocalDate date, String detail) {
 

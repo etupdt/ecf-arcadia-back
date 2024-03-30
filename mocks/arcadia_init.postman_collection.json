@@ -135,7 +135,7 @@
 							"formdata": [
 								{
 									"key": "animalInText",
-									"value": "    {\n         \"firstname\": \"{{firstname}}\",\n        \"health\": \"{{health}}\",\n        \"race\": {\n            \"id\": {{race}}\n        },\n        \"images\" : [\n             {\n                 \"imageName\": \"{{imageName}}\"\n             }\n        ],\n        \"habitat\": {\n                 \"id\": {{habitat}}\n        }\n    }",
+									"value": "    {\n         \"firstname\": \"{{firstname}}\",\n        \"health\": \"{{health}}\",\n        \"description\": \"{{description}},\n        \"race\": {\n            \"id\": {{race}}\n        },\n        \"images\" : [\n             {\n                 \"imageName\": \"{{imageName}}\"\n             }\n        ],\n        \"habitat\": {\n                 \"id\": {{habitat}}\n        }\n    }",
 									"type": "text"
 								},
 								{
@@ -195,7 +195,40 @@
 			]
 		},
 		{
-			"name": "step 05 veterinaryreport",
+			"name": "step 05 foods",
+			"item": [
+				{
+					"name": "insert Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}foods",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{project}}{{uri}}foods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "step 06 veterinaryreport",
 			"item": [
 				{
 					"name": "insert veterinaryreport",
@@ -204,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"detail\": \"{{detail}}\",\r\n    \"food\": \"{{food}}\",\r\n    \"gramage\": \"{{gramage}}\",\r\n    \"animal\": {\r\n        \"id\": {{animal}}\r\n    },\r\n    \"user\": {\r\n        \"id\": {{user}}\r\n    }\r\n}",
+							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"detail\": \"{{detail}}\",\r\n    \"gramage\": {{gramage}},\r\n    \"animal\": {\r\n        \"id\": {{animal}}\r\n    },\r\n    \"user\": {\r\n        \"id\": {{user}}\r\n    },\r\n    \"food\": {\r\n        \"id\": {{food}}\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -220,39 +253,6 @@
 							"port": "{{port}}",
 							"path": [
 								"{{project}}{{uri}}veterinaryreports"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "step 06 hours",
-			"item": [
-				{
-					"name": "insert hours",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"monday\" : \"{{monday}}\",\r\n    \"tuesday\" : \"{{tuesday}}\",\r\n    \"wednesday\" : \"{{wednesday}}\",\r\n    \"thursday\" : \"{{thursday}}\",\r\n    \"friday\" : \"{{friday}}\",\r\n    \"saturday\" : \"{{saturday}}\",\r\n    \"sunday\" : \"{{sunday}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}services",
-							"protocol": "http",
-							"host": [
-								"{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{project}}{{uri}}services"
 							]
 						}
 					},
@@ -327,16 +327,16 @@
 			]
 		},
 		{
-			"name": "step 09 foods",
+			"name": "step 09 hours",
 			"item": [
 				{
-					"name": "insert Copy",
+					"name": "insert hours",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{name}}\"\r\n}",
+							"raw": "{\r\n    \"monday\" : \"{{monday}}\",\r\n    \"tuesday\" : \"{{tuesday}}\",\r\n    \"wednesday\" : \"{{wednesday}}\",\r\n    \"thursday\" : \"{{thursday}}\",\r\n    \"friday\" : \"{{friday}}\",\r\n    \"saturday\" : \"{{saturday}}\",\r\n    \"sunday\" : \"{{sunday}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -344,14 +344,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}foods",
+							"raw": "http://{{domain}}:{{port}}/{{project}}{{uri}}services",
 							"protocol": "http",
 							"host": [
 								"{{domain}}"
 							],
 							"port": "{{port}}",
 							"path": [
-								"{{project}}{{uri}}foods"
+								"{{project}}{{uri}}services"
 							]
 						}
 					},

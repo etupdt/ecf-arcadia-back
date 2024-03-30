@@ -21,12 +21,12 @@ $arcadiaTables = @{
         "image" = $false
     };
     "05" = @{
-        "table" = "veterinaryreport";
+        "table" = "foods";
         "execute" = $true;
         "image" = $false
     };
     "06" = @{
-        "table" = "hours";
+        "table" = "veterinaryreport";
         "execute" = $true;
         "image" = $false
     };
@@ -41,7 +41,7 @@ $arcadiaTables = @{
         "image" = $false
     };
     "09" = @{
-        "table" = "foods";
+        "table" = "hours";
         "execute" = $true;
         "image" = $false
     };

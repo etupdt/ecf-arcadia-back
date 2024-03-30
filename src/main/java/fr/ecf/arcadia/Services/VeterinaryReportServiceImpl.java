@@ -44,6 +44,7 @@ public class VeterinaryReportServiceImpl implements VeterinaryReportService {
             veterinaryReport.setDetail(newVeterinaryReport.getDetail());
             veterinaryReport.setUser(newVeterinaryReport.getUser());
             veterinaryReport.setAnimal(newVeterinaryReport.getAnimal());
+            veterinaryReport.setFood(newVeterinaryReport.getFood());
             return repository.save(veterinaryReport);
         })
         .orElseGet(() -> {

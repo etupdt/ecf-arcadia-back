@@ -56,6 +56,10 @@ public class Animal {
     @OneToMany(mappedBy = "animal")
     private Set<FoodAnimal> foodAnimals;
 
+    @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
+    @OneToMany(mappedBy = "animal")
+    private Set<VeterinaryReport> veterinaryReports;
+
     public Animal(String firstname, String health, List<Image> images, String description) {
 
         this.firstname = firstname;
