@@ -151,7 +151,7 @@
                                                                    "formdata":  [
                                                                                     {
                                                                                         "key":  "animalInText",
-                                                                                        "value":  "    {\n         \"firstname\": \"{{firstname}}\",\n        \"health\": \"{{health}}\",\n        \"race\": {\n            \"id\": {{race}}\n        },\n        \"images\" : [\n             {\n                 \"imageName\": \"{{imageName}}\"\n             }\n        ],\n        \"habitat\": {\n                 \"id\": {{habitat}}\n        }\n    }",
+                                                                                        "value":  "    {\n         \"firstname\": \"{{firstname}}\",\n        \"health\": \"{{health}}\",\n        \"description\": \"{{description}}\",\n        \"race\": {\n            \"id\": {{race}}\n        },\n        \"images\" : [\n             {\n                 \"imageName\": \"{{imageName}}\"\n             }\n        ],\n        \"habitat\": {\n                 \"id\": {{habitat}}\n        }\n    }",
                                                                                         "type":  "text"
                                                                                     },
                                                                                     {
