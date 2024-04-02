@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -29,17 +28,15 @@ public class Habitat {
 
     private String name;
 
-    @Lob
     private String description;
 
-    @Lob
     private String comment;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "habitat_image",
-            joinColumns = {@JoinColumn(name = "habitat_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_id")}
+        name = "habitat_image",
+        joinColumns = {@JoinColumn(name = "habitat_id")},
+        inverseJoinColumns = {@JoinColumn(name = "image_id")}
     )
     private List<Image> images;
 
