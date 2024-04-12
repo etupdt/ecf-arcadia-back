@@ -22,6 +22,10 @@ public class HabitatServiceImpl implements HabitatService {
 
     private static final Logger logger = LoggerFactory.getLogger(HabitatService.class);
 
+    private Gson gson = new GsonBuilder()
+    .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+    .create();
+
     @Autowired
     private AppFileService fileService;
 
@@ -37,20 +41,18 @@ public class HabitatServiceImpl implements HabitatService {
     }
 
     @Override
-    public Habitat addHabitat(MultipartFile file, String habitatInText) {
+    public Habitat addHabitat(MultipartFile[] files, String item) {
 
         logger.debug("=============> executing service addHabitat ");
 
-        Gson gson = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-        .create();
-        Habitat habitat = gson.fromJson(habitatInText, Habitat.class); 
+        Habitat habitat = this.gson.fromJson(item, Habitat.class); 
         
-        for (Image image : habitat.getImages()) {
-            image.setImageName(this.fileService.saveUploadedFile(file, "habitat_" + habitat.getName()));
-            break;
-        }    
-        
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
+        }
+
         return repository.save(habitat);
 
     }
@@ -62,20 +64,42 @@ public class HabitatServiceImpl implements HabitatService {
             .orElseThrow(() -> new HabitatNotFoundException(id));
     }
 
+    private void deleteOldImagesFile(List<Image> oldImages, List<Image> newImages) {
+        for (Image oldImage : oldImages) {
+            if (null == newImages.stream()
+            .filter(newImage -> oldImage.getHash().equals(newImage.getHash()))
+            .findAny()
+            .orElse(null)) {
+                this.fileService.deleteFile(oldImage.getImageName());
+            }
+        }
+    }
+
     @Override
-    public Habitat updateHabitat(Habitat newHabitat, Long id) {
+    public Habitat updateHabitat(MultipartFile[] files, String item, Long id) {
         
+        Habitat newHabitat = this.gson.fromJson(item, Habitat.class); 
+
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
+        }
+
         return repository.findById(id)
         .map(habitat -> {
+            this.deleteOldImagesFile(habitat.getImages(), newHabitat.getImages());
             habitat.setName(newHabitat.getName());
             habitat.setDescription(newHabitat.getDescription());
             habitat.setComment(newHabitat.getComment());
+            habitat.setImages(newHabitat.getImages());
             return repository.save(habitat);
         })
         .orElseGet(() -> {
             newHabitat.setId(id);
             return repository.save(newHabitat);
         });
+        
     }
 
     @Override

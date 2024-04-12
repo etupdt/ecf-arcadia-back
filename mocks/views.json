@@ -2,6 +2,6 @@
     {
         "pseudo": "Toto",
         "comment": "Très bon zoo. Je recommande",
-        "isVisible" : true
+        "isVisible" : false
     }
 ]

@@ -9,9 +9,9 @@ import fr.ecf.arcadia.pojo.Habitat;
 public interface HabitatService {
     
     public List<Habitat> getAllHabitats();
-    public Habitat addHabitat(MultipartFile file, String habitatInText);
+    public Habitat addHabitat(MultipartFile[] files, String item);
     public Habitat getHabitat(Long id);
-    public Habitat updateHabitat(Habitat newHabitat, Long id);
+    public Habitat updateHabitat(MultipartFile[] files, String item, Long id);
     public void deleteHabitat(Long id);
 
 }

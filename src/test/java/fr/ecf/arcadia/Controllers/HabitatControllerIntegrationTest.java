@@ -62,7 +62,7 @@ public class HabitatControllerIntegrationTest {
 
         logger.info("===========> executing post habitat test");
 
-        Mockito.when(habitatService.addHabitat(Mockito.any(MultipartFile.class), Mockito.any(String.class))).thenReturn(savane);
+//        Mockito.when(habitatService.addHabitat(Mockito.any(MultipartFile.class), Mockito.any(String.class))).thenReturn(savane);
 
         mvc.perform(MockMvcRequestBuilders.multipart("/api/habitats")
                 .file("file", image.getBytes())

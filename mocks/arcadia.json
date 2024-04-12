@@ -20,12 +20,12 @@
                                                                    "mode":  "formdata",
                                                                    "formdata":  [
                                                                                     {
-                                                                                        "key":  "habitatInText",
+                                                                                        "key":  "item\n",
                                                                                         "value":  "{\n        \"name\": \"{{name}}\",\n        \"description\": \"{{description}}\",\n        \"comment\": \"{{comment}}\",\n        \"images\": [\n            {\n                \"imageName\": \"{{imageName}}\"\n            }\n        ],\n        \"animals\": []\n    }",
                                                                                         "type":  "text"
                                                                                     },
                                                                                     {
-                                                                                        "key":  "file",
+                                                                                        "key":  "files",
                                                                                         "type":  "file",
                                                                                         "src":  "/C:/Users/denis/OneDrive Gmail/OneDrive/Studi/Evaluations/Arcadia/images/{{imageFile}}"
                                                                                     }
@@ -384,14 +384,14 @@
                                                                                }
                                                                },
                                                       "url":  {
-                                                                  "raw":  "http://{{domain}}:{{port}}/{{project}}{{uri}}services",
+                                                                  "raw":  "http://{{domain}}:{{port}}/{{project}}{{uri}}hours",
                                                                   "protocol":  "http",
                                                                   "host":  [
                                                                                "{{domain}}"
                                                                            ],
                                                                   "port":  "{{port}}",
                                                                   "path":  [
-                                                                               "{{project}}{{uri}}services"
+                                                                               "{{project}}{{uri}}hours"
                                                                            ]
                                                               }
                                                   },
