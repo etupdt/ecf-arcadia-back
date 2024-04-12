@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.ecf.arcadia.Services.AnimalService;
 import fr.ecf.arcadia.pojo.Animal;
+import io.micrometer.common.lang.Nullable;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -32,8 +32,8 @@ public class AnimalController {
     }
 
     @PostMapping
-    public Animal newHabitat(@RequestParam("file") MultipartFile file, @RequestParam String animalInText) {
-        return animalService.addAnimal(file, animalInText);
+    public Animal newHabitat(@RequestParam("files") MultipartFile[] files, @RequestParam String item) {
+        return animalService.addAnimal(files, item);
     }
     
     @GetMapping("/{id}")
@@ -42,8 +42,8 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
-    public Animal updateAnimal(@RequestBody Animal animal, @PathVariable Long id) {        
-        return animalService.updateAnimal(animal, id);
+    public Animal updateAnimal(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item, @PathVariable Long id) {        
+        return animalService.updateAnimal(files, item, id);
     }
 
     @DeleteMapping("/{id}")

@@ -60,7 +60,7 @@ public class AnimalControllerIntegrationTest {
 
         logger.info("===========> executing post animal test");
 
-        Mockito.when(animalService.addAnimal(Mockito.any(MultipartFile.class), Mockito.any(String.class))).thenReturn(flash);
+        // Mockito.when(animalService.addAnimal(Mockito.any(MultipartFile.class), Mockito.any(String.class))).thenReturn(flash);
 
         mvc.perform(MockMvcRequestBuilders.multipart("/api/animals")
                 .file("file", image.getBytes())

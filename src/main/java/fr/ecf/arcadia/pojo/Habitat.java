@@ -67,8 +67,6 @@ public class Habitat {
 
     }
 
-    Set<String> images_Set = new HashSet<String>();
-    
     @PreUpdate
     public void logImagePreUpdateAttempt() {
         logger.info("Attempting to preupdate habitat: " + name);

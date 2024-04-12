@@ -20,8 +20,15 @@ import fr.ecf.arcadia.repositories.AnimalRepository;
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
+    private Gson gson = new GsonBuilder()
+    .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+    .create();
+
     @Autowired
     private AppFileService fileService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private AnimalRepository repository;
@@ -35,18 +42,14 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal addAnimal(MultipartFile file, String animalInText) {
+    public Animal addAnimal(MultipartFile[] files, String item) {
 
-        // Gson gson = new Gson();
-        Gson gson = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-        .create();
-
-        Animal animal = gson.fromJson(animalInText, Animal.class); 
-
-        for (Image image : animal.getImages()) {
-            image.setImageName(this.fileService.saveUploadedFile(file, "animal_" + animal.getFirstname()));
-            break;
+        Animal animal = this.gson.fromJson(item, Animal.class); 
+        
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
         }
 
         return repository.save(animal);
@@ -61,10 +64,19 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal updateAnimal(Animal newAnimal, Long id) {
+    public Animal updateAnimal(MultipartFile[] files, String item, Long id) {
         
+        Animal newAnimal = this.gson.fromJson(item, Animal.class); 
+
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
+        }
+
         return repository.findById(id)
         .map(animal -> {
+            this.imageService.deleteOldImagesFile(animal.getImages(), newAnimal.getImages());
             animal.setFirstname(newAnimal.getFirstname());
             animal.setHealth(newAnimal.getHealth());
             animal.setRace(newAnimal.getRace());

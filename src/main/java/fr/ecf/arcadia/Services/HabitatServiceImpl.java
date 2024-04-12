@@ -30,6 +30,9 @@ public class HabitatServiceImpl implements HabitatService {
     private AppFileService fileService;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private HabitatRepository repository;
 
     public HabitatServiceImpl () {
@@ -64,17 +67,6 @@ public class HabitatServiceImpl implements HabitatService {
             .orElseThrow(() -> new HabitatNotFoundException(id));
     }
 
-    private void deleteOldImagesFile(List<Image> oldImages, List<Image> newImages) {
-        for (Image oldImage : oldImages) {
-            if (null == newImages.stream()
-            .filter(newImage -> oldImage.getHash().equals(newImage.getHash()))
-            .findAny()
-            .orElse(null)) {
-                this.fileService.deleteFile(oldImage.getImageName());
-            }
-        }
-    }
-
     @Override
     public Habitat updateHabitat(MultipartFile[] files, String item, Long id) {
         
@@ -88,7 +80,7 @@ public class HabitatServiceImpl implements HabitatService {
 
         return repository.findById(id)
         .map(habitat -> {
-            this.deleteOldImagesFile(habitat.getImages(), newHabitat.getImages());
+            this.imageService.deleteOldImagesFile(habitat.getImages(), newHabitat.getImages());
             habitat.setName(newHabitat.getName());
             habitat.setDescription(newHabitat.getDescription());
             habitat.setComment(newHabitat.getComment());
