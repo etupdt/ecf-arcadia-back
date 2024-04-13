@@ -2,6 +2,7 @@ package fr.ecf.arcadia.security.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.ecf.arcadia.security.model.*;
+import fr.ecf.arcadia.pojo.User;
 import fr.ecf.arcadia.security.repository.TokenRepository;
 import fr.ecf.arcadia.security.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

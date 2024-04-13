@@ -1,4 +1,4 @@
-package fr.ecf.arcadia.security.model;
+package fr.ecf.arcadia.pojo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,11 +8,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import fr.ecf.arcadia.security.model.Role;
+import fr.ecf.arcadia.security.model.Token;
 
 import java.util.Collection;
 import java.util.List;
@@ -121,4 +123,5 @@ public class User implements UserDetails {
     public void setTokens(List<Token> tokens) {
         this.tokens = tokens;
     }
+    
 }

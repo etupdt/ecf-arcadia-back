@@ -1,6 +1,7 @@
 package fr.ecf.arcadia.security.repository;
 
-import fr.ecf.arcadia.security.model.User;
+import fr.ecf.arcadia.pojo.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

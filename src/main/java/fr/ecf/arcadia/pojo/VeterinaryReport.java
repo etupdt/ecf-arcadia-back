@@ -2,7 +2,6 @@ package fr.ecf.arcadia.pojo;
 
 import java.time.LocalDate;
 
-import fr.ecf.arcadia.security.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,9 +30,9 @@ public class VeterinaryReport {
     @JoinColumn(name = "id_animal")
     private Animal animal;
 
-    // @ManyToOne
-    // @JoinColumn(name = "id_user")
-    // private User user;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_food")

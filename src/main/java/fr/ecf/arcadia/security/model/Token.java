@@ -1,5 +1,6 @@
 package fr.ecf.arcadia.security.model;
 
+import fr.ecf.arcadia.pojo.User;
 import jakarta.persistence.*;
 import lombok.*;
 
