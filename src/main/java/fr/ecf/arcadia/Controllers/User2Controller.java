@@ -13,40 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.ecf.arcadia.Services.UserService;
-import fr.ecf.arcadia.pojo.User;
+import fr.ecf.arcadia.Services.User2Service;
+import fr.ecf.arcadia.pojo.User2;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(ApiRegistration.API_REST + ApiRegistration.USER)
-public class UserController {
+public class User2Controller {
 
     @Autowired
-    private UserService userService;
+    private User2Service User2Service;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<User2> getAllUser2s() {
+        return User2Service.getAllUser2s();
     }
 
     @PostMapping
-    public User newUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public User2 newUser2(@RequestBody User2 User2) {
+        return User2Service.addUser2(User2);
     }
     
     @GetMapping("/{id}")
-    public User one(@PathVariable Long id) {      
-        return userService.getUser(id);
+    public User2 one(@PathVariable Long id) {      
+        return User2Service.getUser2(id);
     }
 
     @PutMapping("/{id}")
-    public User uodateUser(@RequestBody User user, @PathVariable Long id) {        
-        return userService.updateUser(user, id);
+    public User2 uodateUser2(@RequestBody User2 User2, @PathVariable Long id) {        
+        return User2Service.updateUser2(User2, id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteUser2(@PathVariable Long id) {
+        User2Service.deleteUser2(id);
     }
     
 }

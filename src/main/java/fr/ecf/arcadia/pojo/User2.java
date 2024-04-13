@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "users")
-public class User {
+public class User2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,19 +26,19 @@ public class User {
 
     private String firstname;
 
-    private String roles;
+    private String role;
 
-    public User(String username, String password, String lastname, String firstname, String roles) {
+    public User2(String username, String password, String lastname, String firstname, String role) {
 
         this.username = username;
         this.password = password;
         this.lastname = lastname;
         this.firstname = firstname;
-        this.roles = roles;
+        this.role = role;
 
     }
 
-    public User() {
+    public User2() {
 
     }
 
