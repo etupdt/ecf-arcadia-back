@@ -1,6 +1,6 @@
 package fr.ecf.arcadia.security.configuration;
 
-import fr.ecf.arcadia.security.repository.UserRepository;
+import fr.ecf.arcadia.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

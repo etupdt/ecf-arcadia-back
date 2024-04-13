@@ -49,7 +49,7 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
-        logger.info("==========================> ws register ========= " + jwtExpiration);
+        logger.info("==========================> service register ========= " + jwtExpiration);
         return buildToken(extraClaims, userDetails, Long.parseLong(jwtExpiration));
     }
 

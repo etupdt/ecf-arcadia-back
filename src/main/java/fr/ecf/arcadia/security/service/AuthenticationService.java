@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.ecf.arcadia.security.model.*;
 import fr.ecf.arcadia.pojo.User;
 import fr.ecf.arcadia.security.repository.TokenRepository;
-import fr.ecf.arcadia.security.repository.UserRepository;
+import fr.ecf.arcadia.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,38 +29,47 @@ public class AuthenticationService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
     
-    public AuthenticationResponse register(RegisterRequest request) {
+    // public User encryptUserPassword(User newUser) {
+    //     var user = newUser;
+    //     user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+    //     return user;
+    // }
+    // public AuthenticationResponse register(RegisterRequest request) {
 
-        var user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
-                .build();
-        var savedUser = repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
+    //     var user = User.builder()
+    //             .firstname(request.getFirstname())
+    //             .lastname(request.getLastname())
+    //             .email(request.getEmail())
+    //             .password(passwordEncoder.encode(request.getPassword()))
+    //             .role(request.getRole())
+    //             .build();
+    //     var savedUser = repository.save(user);
+    //     var jwtToken = jwtService.generateToken(user);
+    //     var refreshToken = jwtService.generateRefreshToken(user);
+    //     saveUserToken(savedUser, jwtToken);
+    //     return AuthenticationResponse.builder()
+    //             .accessToken(jwtToken)
+    //             .refreshToken(refreshToken)
+    //             .build();
+    // }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        logger.info("========== 1 ================> service authenticate ========= " + request.getEmail() + "===" + request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
+        logger.info("========== 2 ================> service authenticate ========= ");
         var user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
+        .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        logger.info("========== 3 ================> service authenticate ========= ");
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
+        logger.info("========== 3 ================> service authenticate ========= ");
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)

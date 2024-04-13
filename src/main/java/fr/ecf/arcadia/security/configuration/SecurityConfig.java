@@ -44,10 +44,10 @@ public class SecurityConfig {
     
     @Bean
     public SecurityFilterChain securityFilterChainAuth(HttpSecurity httpSecurity) throws Exception {
-//        sharedSecurityConfiguration(httpSecurity);
+        // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
+        .securityMatcher("/ecf-arcadia-back/api/auth/authenticate")
                     .securityMatcher("/ecf-arcadia-back/api/users")
-                    .securityMatcher("/ecf-arcadia-back/api/auth/authenticate")
                     .securityMatcher("/ecf-arcadia-back/api/auth/register")
                     .securityMatcher("/ecf-arcadia-back/api/auth/refresh-token")
                     .authorizeHttpRequests(auth -> {
