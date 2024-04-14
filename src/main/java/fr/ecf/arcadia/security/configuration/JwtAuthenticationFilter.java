@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.util.Enumeration;
 
 @Component
 @RequiredArgsConstructor
@@ -36,55 +37,55 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        logger.info("==================  1  ========> " + request.getServletPath() + " ========= " + request.getServletPath().contains("/api/auth"));
+        if (request.getMethod().equals("OPTIONS")){
+            filterChain.doFilter(request,response);
+            return;
+        }
+        
         if (request.getServletPath().contains("/api/auth")){
             filterChain.doFilter(request,response);
             return;
         }
         
-        logger.info("==================  2  ========> " + request.getServletPath() + " ========= " + request.getServletPath().contains("/api/auth"));
-         if (request.getServletPath().contains("/api/hours")){
+        if (request.getServletPath().contains("/api/hours")){
             filterChain.doFilter(request,response);
             return;
-         }
+        }
  
-         logger.info("==================  3  ========> " + request.getServletPath() + " ========= " + request.getServletPath().contains("/api/auth"));
-         if (request.getServletPath().contains("/api/users")){
+        if (request.getServletPath().contains("/api/users")){
             filterChain.doFilter(request,response);
             return;
-         }
+        }
  
-        logger.info("==========================> authorization ========= " + request.getHeader("Authorization"));
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("authorization");
         String jwt= "";
         String userEmail = "";
 
-        // if(!authHeader.startsWith("Bearer ")){
-        //     filterChain.doFilter(request,response);
-        //     return;
-        // }
-        if (null == authHeader || authHeader.startsWith("Bearer ")) {
+        if (null == authHeader || !authHeader.startsWith("Bearer ")) {
             throw new AccessDeniedException("Access denied");
         }
         
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwt);
-        if(userEmail != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null){
-                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            boolean isTokenValid = tokenRepository.findByToken(jwt)
-            .map(t -> !t.isExpired() && !t.isRevoked())
-            .orElse(false);
+
+        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             
-            if(jwtService.isTokenValid(jwt,userDetails) && isTokenValid){
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+
+            boolean isTokenValid = tokenRepository.findByToken(jwt)
+                .map(t -> !t.isExpired() && !t.isRevoked())
+                .orElse(false);
+            
+            if(jwtService.isTokenValid(jwt,userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                filterChain.doFilter(request,response);
             }
+
         }
         
-        throw new AccessDeniedException("Access denied");
+        filterChain.doFilter(request,response);
+        // throw new AccessDeniedException("Access denied");
 
     }
 }

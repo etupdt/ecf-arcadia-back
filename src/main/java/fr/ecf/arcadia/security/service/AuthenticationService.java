@@ -54,22 +54,18 @@ public class AuthenticationService {
     // }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        logger.info("========== 1 ================> service authenticate ========= " + request.getEmail() + "===" + request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-        logger.info("========== 2 ================> service authenticate ========= ");
         var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        logger.info("========== 3 ================> service authenticate ========= ");
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
-        logger.info("========== 3 ================> service authenticate ========= ");
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)

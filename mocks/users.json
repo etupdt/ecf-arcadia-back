@@ -4,20 +4,20 @@
         "password": "",
         "firstname" : "Veto1",
         "lastname" : "Jules",
-        "roles" : "['ROLE_VETO']"
+        "roles" : "['VETERINARY']"
     },
     {
         "username": "boss@arcadia.com",
         "password": "",
         "firstname" : "Boss",
         "lastname" : "Arnaud",
-        "roles" : "['ROLE_ADMIN']"
+        "roles" : "['ADMIN']"
     },
     {
         "username": "veto2@arcadia.com",
         "password": "",
         "firstname" : "Veto2",
         "lastname" : "Yves",
-        "roles" : "['ROLE_VETO']"
+        "roles" : "['VETERINARY']"
     }
 ]

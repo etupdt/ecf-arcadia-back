@@ -8,6 +8,9 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import fr.ecf.arcadia.pojo.User;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +28,7 @@ public class JwtService {
     @Value("SFG313S1FGHG32SFGH21S3F2G1H32S1F3GS2QDGQ6546QDGF65QDG65QD4FG654QD6G46Q5D4G654QSD65G456S4D6F54G6Q54SD6GF446Q5D4FG654Q6D5F4G65S4D6FG4DGFQ1FHG3")
     private String secretKey;
 
-    @Value("120000")
+    @Value("1200000")
     private String jwtExpiration;
 
     @Value("114000")
@@ -41,15 +44,17 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(User user) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("id", user.getId());
+        extraClaims.put("role", user.getRole());
+        return generateToken(extraClaims, user);
     }
 
     public String generateToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
-        logger.info("==========================> service register ========= " + jwtExpiration);
         return buildToken(extraClaims, userDetails, Long.parseLong(jwtExpiration));
     }
 
