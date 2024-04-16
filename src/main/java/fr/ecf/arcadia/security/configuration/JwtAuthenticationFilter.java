@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.util.Enumeration;
 
 @Component
 @RequiredArgsConstructor
@@ -47,45 +46,40 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         
-        if (request.getServletPath().contains("/api/hours")){
-            filterChain.doFilter(request,response);
-            return;
-        }
- 
-        if (request.getServletPath().contains("/api/users")){
-            filterChain.doFilter(request,response);
-            return;
-        }
- 
         String authHeader = request.getHeader("authorization");
         String jwt= "";
         String userEmail = "";
 
-        if (null == authHeader || !authHeader.startsWith("Bearer ")) {
-            throw new AccessDeniedException("Access denied");
-        }
-        
-        jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        if (null != authHeader) {
 
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-
-            boolean isTokenValid = tokenRepository.findByToken(jwt)
-                .map(t -> !t.isExpired() && !t.isRevoked())
-                .orElse(false);
-            
-            if(jwtService.isTokenValid(jwt,userDetails) && isTokenValid) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            if (!authHeader.startsWith("Bearer ")) {
+                throw new AccessDeniedException("Accés non autorisé");
             }
 
-        }
-        
+            jwt = authHeader.substring(7);
+            userEmail = jwtService.extractUsername(jwt);
+
+            if((userEmail != null) && (SecurityContextHolder.getContext().getAuthentication() == null)) {
+                
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+
+                boolean isTokenValid = tokenRepository.findByToken(jwt)
+                    .map(t -> !t.isExpired() && !t.isRevoked())
+                    .orElse(false);
+                
+                if(jwtService.isTokenValid(jwt,userDetails) && isTokenValid) {
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+
+            }
+            
+        }    
+            
         filterChain.doFilter(request,response);
         // throw new AccessDeniedException("Access denied");
 
     }
+
 }
