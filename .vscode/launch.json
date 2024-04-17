@@ -9,7 +9,8 @@
             "name": "ArcadiaApplication",
             "request": "launch",
             "mainClass": "fr.ecf.arcadia.ArcadiaApplication",
-            "projectName": "arcadia"
+            "projectName": "arcadia",
+            "envFile": "${workspaceFolder}/env.dev.properties"
         },
         {
             "type": "java",

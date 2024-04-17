@@ -41,6 +41,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         
+        if (request.getMethod().equals("GET")){
+            filterChain.doFilter(request,response);
+            return;
+        }
+        
+        if (request.getMethod().equals("POST") && request.getServletPath().equals("/api/views")){
+            filterChain.doFilter(request,response);
+            return;
+        }
+        
         if (request.getServletPath().contains("/api/auth")){
             filterChain.doFilter(request,response);
             return;
@@ -76,9 +86,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             
         }    
-            
+
         filterChain.doFilter(request,response);
-        // throw new AccessDeniedException("Access denied");
 
     }
 

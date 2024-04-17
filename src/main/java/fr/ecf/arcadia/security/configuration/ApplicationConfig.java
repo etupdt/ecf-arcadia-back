@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @RequiredArgsConstructor
+// @EnableWebMvc
 public class ApplicationConfig {
 
     private final UserRepository repository;

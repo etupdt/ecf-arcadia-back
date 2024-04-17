@@ -2,14 +2,9 @@ package fr.ecf.arcadia.Services;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,9 +36,12 @@ public class AppFileService {
         File directory = new File("./");
         
         logger.info("===========> create " + directory.getAbsolutePath() + "====" + fileBasePath + "=====" + file.getOriginalFilename() );
+        logger.info("===========> images path ==== " + environment.getProperty("server.imagesFilePath"));
 
         try {
-            fileName = directory.getAbsolutePath().substring(0, directory.getAbsolutePath().length() - 1) + fileBasePath + file.getOriginalFilename();
+            // fileName = directory.getAbsolutePath().substring(0, directory.getAbsolutePath().length() - 1) + fileBasePath + file.getOriginalFilename();
+            // fileName = directory.getAbsolutePath().substring(0, directory.getAbsolutePath().length() - 1) + environment.getProperty("server.imagesFilePath") + file.getOriginalFilename();
+            fileName = environment.getProperty("server.imagesFilePath") + file.getOriginalFilename();
             file.transferTo(new File(fileName));
             logger.info("file copie ok");
         } catch (IOException e) {
@@ -61,7 +59,7 @@ public class AppFileService {
         
         logger.info("===========> delete " + directory.getAbsolutePath() + "====" + fileBasePath + "=====" + fileName );
 
-        File fileToDelete = FileUtils.getFile(directory.getAbsolutePath().substring(0, directory.getAbsolutePath().length() - 1) + fileBasePath + fileName);
+        File fileToDelete = FileUtils.getFile(directory.getAbsolutePath().substring(0, directory.getAbsolutePath().length() - 1) + environment.getProperty("server.imagesFilePath") + fileName);
         return FileUtils.deleteQuietly(fileToDelete);
 
     }
