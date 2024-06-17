@@ -1,23 +1,23 @@
 [
     {
-        "username": "veto1@arcadia.com",
+        "email": "veto1@arcadia.com",
         "password": "",
         "firstname" : "Veto1",
         "lastname" : "Jules",
-        "roles" : "['VETERINARY']"
+        "role" : "['VETERINARY']"
     },
     {
-        "username": "boss@arcadia.com",
+        "email": "boss@arcadia.com",
         "password": "",
         "firstname" : "Boss",
         "lastname" : "Arnaud",
-        "roles" : "['ADMIN']"
+        "role" : "['ADMIN']"
     },
     {
-        "username": "veto2@arcadia.com",
+        "email": "veto2@arcadia.com",
         "password": "",
         "firstname" : "Veto2",
         "lastname" : "Yves",
-        "roles" : "['VETERINARY']"
+        "role" : "['VETERINARY']"
     }
 ]

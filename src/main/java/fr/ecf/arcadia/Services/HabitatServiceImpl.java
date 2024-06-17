@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Habitat;
-import fr.ecf.arcadia.pojo.Image;
 import fr.ecf.arcadia.repositories.HabitatRepository;
 
 @Service
