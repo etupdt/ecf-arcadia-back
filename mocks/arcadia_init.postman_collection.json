@@ -18,7 +18,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "item\n",
+									"key": "item",
 									"value": "{\n        \"name\": \"{{name}}\",\n        \"description\": \"{{description}}\",\n        \"comment\": \"{{comment}}\",\n        \"images\": [\n            {\n                \"imageName\": \"{{imageName}}\"\n            }\n        ],\n        \"animals\": []\n    }",
 									"type": "text"
 								},
@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"roles\" : \"{{roles}}\"\r\n}",
+							"raw": "{\r\n    \"username\": \"{{email}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"roles\" : \"{{role}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

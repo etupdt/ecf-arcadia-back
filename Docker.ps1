@@ -12,14 +12,14 @@ docker image rm ecf-arcadia-back
 docker build --no-cache -t ecf-arcadia-back --build-arg CATALINA_HOME=/usr/local/tomcat .
 
 docker run -d --name ecf-arcadia-back-preprod `
-    -p 8080:8080 `
-    -v ecf-garage-volume-preprod:/usr/local/tomcat/webapps/ROOT/images `
+    -p 8082:8080 `
+    -v ecf-arcadia-volume-preprod:/usr/local/images `
     --env-file src/main/resources/preprod/env.properties `
     ecf-arcadia-back
 
 docker run -d --name ecf-arcadia-back-test `
-    -p 8082:8080 `
-    -v ecf-garage-volume-test:/usr/local/tomcat/webapps/ROOT/images `
+    -p 8083:8080 `
+    -v ecf-arcadia-volume-test:/usr/local/images `
     --env-file src/main/resources/test/env.properties `
     ecf-arcadia-back
 

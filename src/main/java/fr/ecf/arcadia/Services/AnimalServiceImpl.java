@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Animal;
-import fr.ecf.arcadia.pojo.Image;
 import fr.ecf.arcadia.repositories.AnimalRepository;
 
 @Service
@@ -79,8 +78,10 @@ public class AnimalServiceImpl implements AnimalService {
             this.imageService.deleteOldImagesFile(animal.getImages(), newAnimal.getImages());
             animal.setFirstname(newAnimal.getFirstname());
             animal.setHealth(newAnimal.getHealth());
+            animal.setDescription(newAnimal.getDescription());
             animal.setRace(newAnimal.getRace());
             animal.setHabitat(newAnimal.getHabitat());
+            animal.setImages(newAnimal.getImages());
             return repository.save(animal);
         })
         .orElseGet(() -> {

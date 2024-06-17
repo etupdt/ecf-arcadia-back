@@ -51,11 +51,11 @@ public class Animal {
     private List<Image> images;
 
     @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private Set<FoodAnimal> foodAnimals;
 
     @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private Set<VeterinaryReport> veterinaryReports;
 
     public Animal(String firstname, String health, List<Image> images, String description) {

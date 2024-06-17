@@ -32,6 +32,7 @@ WORKDIR $CATALINA_HOME
 
 COPY --chmod=755 target/ecf-arcadia-back.war ./webapps/
 COPY --chmod=755 src/main/resources/server/application.properties ./lib
+COPY --chmod=755 src/main/resources/server/images.xml ./conf/Catalina/localhost/
 
 # let "Tomcat Native" live somewhere isolated
 ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
@@ -64,4 +65,4 @@ EXPOSE 8080
 # upstream eclipse-temurin-provided entrypoint script caused https://github.com/docker-library/tomcat/issues/77 to come back as https://github.com/docker-library/tomcat/issues/302; use "/entrypoint.sh" at your own risk
 ENTRYPOINT []
 
-CMD ["catalina.sh", "run"]
+ CMD ["catalina.sh", "run"]
