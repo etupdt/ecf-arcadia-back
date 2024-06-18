@@ -2,13 +2,18 @@ package fr.ecf.arcadia.pojo;
 
 import java.time.LocalDate;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+@Document
 @Getter
 @Setter
 public class AnimalStatistic {
 
+    @Id
     private String firstname;
 
     private LocalDate date;
@@ -17,15 +22,11 @@ public class AnimalStatistic {
   
     public AnimalStatistic() {}
   
-    public AnimalStatistic(String firstname) {
-        this.firstname = firstname;
-    }
-  
     @Override
     public String toString() {
 
         return String.format(
-            "Customer[id=%s, name='%s']",
+            "Stat[name='%s']",
             firstname
         );
     

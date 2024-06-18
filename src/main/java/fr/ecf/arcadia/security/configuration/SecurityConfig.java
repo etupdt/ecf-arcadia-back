@@ -36,7 +36,7 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/auth/authenticate", "/api/auth/request-token")  
+        .securityMatcher("/api/auth/authenticate", "/api/auth/request-token", "/api/animals/statistics")  
         .authorizeHttpRequests(auth -> {
             auth
             .requestMatchers(HttpMethod.POST).permitAll();
@@ -82,7 +82,7 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/views", "/api/views/*", "/api/animal/statistics")
+        .securityMatcher("/api/views", "/api/views/*")
         .authorizeHttpRequests(auth -> {
             auth
             .requestMatchers(HttpMethod.GET).permitAll()
