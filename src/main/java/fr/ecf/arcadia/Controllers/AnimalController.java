@@ -36,6 +36,11 @@ public class AnimalController {
         return animalService.addAnimal(files, item);
     }
     
+    @PostMapping("/statistics")
+    public void setAnimalStatistic(@RequestParam Animal animal) {
+        animalService.setAnimalStatistic(animal);
+    }
+    
     @GetMapping("/{id}")
     public Animal one(@PathVariable Long id) {      
         return animalService.getAnimal(id);

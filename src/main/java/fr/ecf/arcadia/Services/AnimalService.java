@@ -10,6 +10,7 @@ public interface AnimalService {
 
     public List<Animal> getAllAnimals();
     public Animal addAnimal(MultipartFile[] files, String item);
+    public void setAnimalStatistic(Animal animal);
     public Animal getAnimal(Long id);
     public Animal updateAnimal(MultipartFile[] files, String item, Long id);
     public void deleteAnimal(Long id);

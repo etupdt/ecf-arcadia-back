@@ -82,7 +82,7 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/views", "/api/views/*")
+        .securityMatcher("/api/views", "/api/views/*", "/api/animal/statistics")
         .authorizeHttpRequests(auth -> {
             auth
             .requestMatchers(HttpMethod.GET).permitAll()

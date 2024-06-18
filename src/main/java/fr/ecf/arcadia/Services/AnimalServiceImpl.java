@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Animal;
 import fr.ecf.arcadia.repositories.AnimalRepository;
+import fr.ecf.arcadia.repositories.AnimalStatisticRepository;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
@@ -31,6 +32,9 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
     private AnimalRepository repository;
+
+    @Autowired
+    private AnimalStatisticRepository statisticRepository;
 
     public AnimalServiceImpl () {
     }
@@ -55,6 +59,11 @@ public class AnimalServiceImpl implements AnimalService {
 
     }
     
+    @Override
+    public void setAnimalStatistic(Animal animal) {
+        this.statisticRepository.findAndIncrementStatisticsByFirstname(animal.getFirstname());
+    }
+
     @Override
     public Animal getAnimal(@PathVariable Long id) {
 

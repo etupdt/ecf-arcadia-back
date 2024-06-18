@@ -46,7 +46,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         
-        if (request.getMethod().equals("POST") && request.getServletPath().equals("/api/views")){
+        if (request.getMethod().equals("POST") && (
+            request.getServletPath().equals("/api/views") || 
+            request.getServletPath().equals("/api/animals/statistics")
+        )){
             filterChain.doFilter(request,response);
             return;
         }
