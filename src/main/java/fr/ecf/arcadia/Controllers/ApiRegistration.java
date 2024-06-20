@@ -24,4 +24,6 @@ public interface ApiRegistration {
     
     final String FOOD = "foods";
     
+    final String CONTACT = "contact";
+    
 }
