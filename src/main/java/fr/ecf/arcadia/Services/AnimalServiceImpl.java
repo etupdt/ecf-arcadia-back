@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Animal;
+import fr.ecf.arcadia.pojo.AnimalStatistic;
 import fr.ecf.arcadia.repositories.AnimalRepository;
+import fr.ecf.arcadia.repositories.AnimalStatisticRepository;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
@@ -31,6 +34,9 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
     private AnimalRepository repository;
+
+    @Autowired
+    private AnimalStatisticRepository statisticRepository;
 
     public AnimalServiceImpl () {
     }
@@ -55,6 +61,16 @@ public class AnimalServiceImpl implements AnimalService {
 
     }
     
+    @Override
+    public void setAnimalStatistic(AnimalStatistic animalStatistic) {
+        this.statisticRepository.findAndIncrementStatisticsByFirstname(animalStatistic);
+    }
+
+    @Override
+    public List<AnimalStatistic> getAnimalsStatistics() {
+        return this.statisticRepository.findAll(Sort.by("date").ascending());
+    }
+
     @Override
     public Animal getAnimal(@PathVariable Long id) {
 

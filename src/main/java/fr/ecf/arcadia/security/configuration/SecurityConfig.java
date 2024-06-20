@@ -36,10 +36,11 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/auth/authenticate", "/api/auth/request-token")  
+        .securityMatcher("/api/auth/authenticate", "/api/auth/request-token", "/api/animals/statistics")  
         .authorizeHttpRequests(auth -> {
             auth
-            .requestMatchers(HttpMethod.POST).permitAll();
+            .requestMatchers(HttpMethod.POST).permitAll()
+            .requestMatchers(HttpMethod.GET).hasAuthority("ADMIN");
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
@@ -54,7 +55,7 @@ public class SecurityConfig {
         httpSecurity
         .csrf(csrf -> csrf.disable())
         .securityMatcher(
-            "/api/animals", "/api/animals/*",
+            "/api/animals", "/api/animals/*", "/api/animals/statistics",
             "/api/foods", "/api/foods/*",
             "/api/habitats", "/api/habitats/*",
             "/api/hours", "/api/hours/*",
