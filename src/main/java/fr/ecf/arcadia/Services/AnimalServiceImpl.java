@@ -68,7 +68,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public List<AnimalStatistic> getAnimalsStatistics() {
-        return this.statisticRepository.findAll(Sort.by("firstname").ascending());
+        return this.statisticRepository.findAll(Sort.by("date").ascending());
     }
 
     @Override

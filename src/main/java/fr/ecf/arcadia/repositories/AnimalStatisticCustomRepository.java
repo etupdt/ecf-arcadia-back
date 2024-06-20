@@ -9,6 +9,6 @@ import fr.ecf.arcadia.pojo.AnimalStatistic;
 public interface AnimalStatisticCustomRepository {
 
     void findAndIncrementStatisticsByFirstname(AnimalStatistic animalStatistic); 
-    List<AnimalStatistic> findAllSortByFirstname(Sort sort);
+    // List<AnimalStatistic> findAllSortByDate(Sort sort);
 
 }

@@ -26,10 +26,10 @@ public class AnimalStatisticCustomRepositoryImpl implements AnimalStatisticCusto
         mongoAppConfig.mongoTemplate().findAndModify(query, updateDefinition, options, AnimalStatistic.class);
     }
 
-    @Override
-    public List<AnimalStatistic> findAllSortByFirstname(Sort sort) {
-        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "firstname"));
-        return mongoAppConfig.mongoTemplate().find(query, AnimalStatistic.class);
-    } 
+    // @Override
+    // public List<AnimalStatistic> findAllSortByDate(Sort sort) {
+    //     Query query = new Query().with(Sort.by(Sort.Direction.ASC, "date"));
+    //     return mongoAppConfig.mongoTemplate().find(query, AnimalStatistic.class);
+    // } 
 
 }

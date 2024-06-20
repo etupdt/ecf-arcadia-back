@@ -15,7 +15,7 @@ public interface AnimalStatisticRepository extends MongoRepository<AnimalStatist
     @Update("{ '$inc' : { 'qty' : 1 } }")
     void findAndIncrementStatisticsByFirstname(AnimalStatistic animalStatistic); 
 
-    @Query
-    List<AnimalStatistic> findAllSortByFirstname(Sort sort);
+    // @Query
+    // List<AnimalStatistic> findAllSortByDate(Sort sort);
 
 }
