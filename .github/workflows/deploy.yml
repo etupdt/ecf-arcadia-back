@@ -5,34 +5,34 @@ name: Deploy to OVH
 on:
   push:
     branches:
-      -main
+      - main
 
-  environment: OVH
-  env:
-    USER: ${{ secrets.USER }}
-    PASSWORD: ${{ secrets.PASSWORD }}
-    HOST: ${{ secrets.HOST }}
-    APP_PATH: ${{ variables.PATH }}
+environment: OVH
+env:
+  USER: ${{ secrets.USER }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  HOST: ${{ secrets.HOST }}
+  APP_PATH: ${{ variables.PATH }}
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-        - name: Install SSH Client
-          run: |
-            sudo apt-get update && sudo apt-get install openssh-client sshpass
-            sudo mkdir /app
-            sudo chmod 755 /app
+      - name: Install SSH Client
+        run: |
+          sudo apt-get update && sudo apt-get install openssh-client sshpass
+          sudo mkdir /app
+          sudo chmod 755 /app
 
-        - name: Copy files to OVH
-          run: sshpass -p $PASSWORD -r scp ./ ${USER}@${HOST}:/${PATH}
+      - name: Copy files to OVH
+        run: sshpass -p $PASSWORD -r scp ./ ${USER}@${HOST}:/${PATH}
 
-        - name: Deploy using docker-compose
-          run: sshpass -p $PASSWORD -o StrictHostKeyChecking=no ${USER}@${HOST} << 'EOF'
-            cd $PATH
-            docker-compose up -d
-            EOF          
+      - name: Deploy using docker-compose
+        run: sshpass -p $PASSWORD -o StrictHostKeyChecking=no ${USER}@${HOST} << 'EOF'
+          cd $PATH
+          docker-compose up -d
+          EOF
