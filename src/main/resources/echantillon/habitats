@@ -1,0 +1,101 @@
+{
+    "name" : "Savane",
+    "description" : "sec et chaud",
+    "comment" : "Aride sec et chaud",
+    "animals" : [],
+    "images" : [
+        {
+            "imageName" : "Savane"
+        }
+    ]
+}
+{
+    "name" : "Jungle",
+    "description" : "humide",
+    "comment" : "Très humide",
+    "animals" : [
+        {
+            "firstname": "Tiger",
+            "health": "Bon",
+            "race": {
+                "label": "Tigre"
+            }
+        },
+        {
+            "firstname": "Donkey",
+            "health": "Bon",
+            "race": {
+                "label": "Singe"
+            }
+        }
+    ],
+    "images" : [
+        {
+            "imageName" : "Jungle"
+        }
+    ]
+}
+
+{
+    "name" : "Jungle",
+    "description" : "humide",
+    "comment" : "Très humide",
+    "animals" : [
+        {
+            "firstname": "Croco",
+            "health": "Bon",
+            "race": {
+                "label": "Crocodile"
+            }
+        },
+        {
+            "firstname": "Pink",
+            "health": "Bon",
+            "race": {
+                "label": "Flamand rose"
+            }
+        }
+    ],
+    "images" : [
+        {
+            "imageName" : "Marais"
+        }
+    ]
+}
+
+{
+    "firstname": "Jumbo",
+    "health": "Bon",
+    "race": {
+        "label": "Eléphant"
+    },
+    "images" : [
+        {
+            "imageName" : "Jumbo"
+        }
+    ],
+    "habitat" : {
+        "id" : 1
+    }
+}
+{
+    "firstname": "Zouzou",
+    "health": "Bon",
+    "race": {
+        "label": "Zébre"
+    }
+},
+{
+    "firstname": "Flash",
+    "health": "Bon",
+    "race": {
+        "label": "Antilope"
+    }
+},
+{
+    "firstname": "Gigi",
+    "health": "Bon",
+    "race": {
+        "label": "Giraffe"
+    }
+}

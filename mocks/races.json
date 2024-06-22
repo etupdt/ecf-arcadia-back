@@ -1,0 +1,22 @@
+[
+    {
+        "race": 1,
+        "label": "gazelle"
+    },
+    {
+        "race": 2,
+        "label": "Eléphant"
+    },
+    {
+        "race": 3,
+        "label": "Crocodile"
+    },
+    {
+        "race": 4,
+        "label": "Girafe"
+    },
+    {
+        "race": 5,
+        "label": "Zèbre"
+    }
+]

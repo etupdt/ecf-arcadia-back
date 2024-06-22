@@ -1,0 +1,18 @@
+[
+    {
+        "date": "2023-11-03",
+        "detail": "Ceci n'est qu'un détail",
+        "gramage": 1000,
+        "animal" : 3,
+        "user" : 2,
+        "food": 1
+    },
+    {
+        "date": "2023-12-03",
+        "detail": "Ceci n'est qu'un 2ième détail",
+        "gramage": 2000,
+        "animal" : 3,
+        "user" : 2,
+        "food": 1
+    }
+]

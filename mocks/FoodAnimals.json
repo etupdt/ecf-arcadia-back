@@ -1,0 +1,20 @@
+[
+    {
+        "gramage": 1000,
+        "dateFood": "2024-04-29",
+        "food": 2,
+        "animal": 1
+    },
+    {
+        "gramage": 1000,
+        "dateFood": "2024-04-29",
+        "food": 1,
+        "animal": 3
+    },
+    {
+        "gramage": 1000,
+        "dateFood": "2024-04-29",
+        "food": 2,
+        "animal": 4
+    }
+]
