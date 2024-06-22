@@ -35,4 +35,4 @@ on:
           run: sshpass -p $PASSWORD -o StrictHostKeyChecking=no ${USER}@${HOST} << 'EOF'
             cd $PATH
             docker-compose up -d
-          EOF          
+            EOF          
