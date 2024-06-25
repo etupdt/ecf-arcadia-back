@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Race {
+public class Breed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,13 +18,13 @@ public class Race {
 
     private String label;
 
-    public Race(String label) {
+    public Breed(String label) {
 
         this.label = label;
 
     }
 
-    public Race() {
+    public Breed() {
 
     }
 

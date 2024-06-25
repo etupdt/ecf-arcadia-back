@@ -2,8 +2,8 @@ package fr.ecf.arcadia.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fr.ecf.arcadia.pojo.Race;
+import fr.ecf.arcadia.pojo.Breed;
 
-public interface RaceRepository extends JpaRepository<Race, Long>  {
+public interface BreedRepository extends JpaRepository<Breed, Long>  {
 
 }
