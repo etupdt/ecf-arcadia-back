@@ -59,7 +59,7 @@ public class SecurityConfig {
             "/api/foods", "/api/foods/*",
             "/api/habitats", "/api/habitats/*",
             "/api/hours", "/api/hours/*",
-            "/api/breeds", "/api/breeds/*",
+            "/api/races", "/api/races/*",
             "/api/services", "/api/services/*",
             "/api/users", "/api/users/*"
             )

@@ -56,7 +56,7 @@ public class ApplicationConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
+                        .allowedOrigins("http://localhost:4200", "http://vps-8c1e7783.vps.ovh.net", "https://www.etupdt.com")
                         .allowCredentials(false).allowedMethods("POST", "GET", "PUT");
 
             }
