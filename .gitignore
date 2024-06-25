@@ -98,9 +98,11 @@ webapps/
 application
 # test-context.xml
 
+.env
 env.properties
 env.dev.properties
 application.properties
+!src/main/resources/server/application.properties
 
 docker-compose-dev.yml
 
