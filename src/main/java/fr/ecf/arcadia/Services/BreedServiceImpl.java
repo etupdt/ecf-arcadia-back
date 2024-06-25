@@ -3,55 +3,54 @@ package fr.ecf.arcadia.Services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import fr.ecf.arcadia.pojo.Race;
-import fr.ecf.arcadia.repositories.RaceRepository;
+import fr.ecf.arcadia.pojo.Breed;
+import fr.ecf.arcadia.repositories.BreedRepository;
 
 @Service
-public class RaceServiceImpl implements RaceService {
+public class BreedServiceImpl implements BreedService {
 
     @Autowired
-    private RaceRepository repository;
+    private BreedRepository repository;
 
-    public RaceServiceImpl () {
+    public BreedServiceImpl () {
     }
 
     @Override
-    public List<Race> getAllRaces() {
+    public List<Breed> getAllBreeds() {
         return repository.findAll();
     }
 
     @Override
-    public Race addRace(Race animal) {
+    public Breed addBreed(Breed animal) {
         return repository.save(animal);
     }
     
     @Override
-    public Race getRace(@PathVariable Long id) {
+    public Breed getBreed(@PathVariable Long id) {
 
         return repository.findById(id)
-            .orElseThrow(() -> new RaceNotFoundException(id));
+            .orElseThrow(() -> new BreedNotFoundException(id));
     }
 
     @Override
-    public Race updateRace(Race newRace, Long id) {
+    public Breed updateBreed(Breed newBreed, Long id) {
         
         return repository.findById(id)
         .map(animal -> {
-            animal.setLabel(newRace.getLabel());
+            animal.setLabel(newBreed.getLabel());
             return repository.save(animal);
         })
         .orElseGet(() -> {
-            newRace.setId(id);
-            return repository.save(newRace);
+            newBreed.setId(id);
+            return repository.save(newBreed);
         });
     }
 
     @Override
-    public void deleteRace(Long id) {
+    public void deleteBreed(Long id) {
         repository.deleteById(id);
     }
     

@@ -17,14 +17,14 @@
         {
             "firstname": "Tiger",
             "health": "Bon",
-            "race": {
+            "breed": {
                 "label": "Tigre"
             }
         },
         {
             "firstname": "Donkey",
             "health": "Bon",
-            "race": {
+            "breed": {
                 "label": "Singe"
             }
         }
@@ -44,14 +44,14 @@
         {
             "firstname": "Croco",
             "health": "Bon",
-            "race": {
+            "breed": {
                 "label": "Crocodile"
             }
         },
         {
             "firstname": "Pink",
             "health": "Bon",
-            "race": {
+            "breed": {
                 "label": "Flamand rose"
             }
         }
@@ -66,7 +66,7 @@
 {
     "firstname": "Jumbo",
     "health": "Bon",
-    "race": {
+    "breed": {
         "label": "Eléphant"
     },
     "images" : [
@@ -81,21 +81,21 @@
 {
     "firstname": "Zouzou",
     "health": "Bon",
-    "race": {
+    "breed": {
         "label": "Zébre"
     }
 },
 {
     "firstname": "Flash",
     "health": "Bon",
-    "race": {
+    "breed": {
         "label": "Antilope"
     }
 },
 {
     "firstname": "Gigi",
     "health": "Bon",
-    "race": {
+    "breed": {
         "label": "Giraffe"
     }
 }

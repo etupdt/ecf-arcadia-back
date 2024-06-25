@@ -34,8 +34,8 @@ public class Animal {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_race")
-    private Race race;
+    @JoinColumn(name = "id_breed")
+    private Breed breed;
 
     @JsonIgnoreProperties(value = {"animals"}, allowSetters = true)
     @ManyToOne

@@ -95,7 +95,7 @@ public class AnimalServiceImpl implements AnimalService {
             animal.setFirstname(newAnimal.getFirstname());
             animal.setHealth(newAnimal.getHealth());
             animal.setDescription(newAnimal.getDescription());
-            animal.setRace(newAnimal.getRace());
+            animal.setBreed(newAnimal.getBreed());
             animal.setHabitat(newAnimal.getHabitat());
             animal.setImages(newAnimal.getImages());
             return repository.save(animal);
