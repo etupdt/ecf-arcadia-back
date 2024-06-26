@@ -45,8 +45,8 @@ public class Habitat {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "habitat_image",
-        joinColumns = {@JoinColumn(name = "habitat_id")},
-        inverseJoinColumns = {@JoinColumn(name = "image_id")}
+        joinColumns = {@JoinColumn(name = "id_habitat")},
+        inverseJoinColumns = {@JoinColumn(name = "id_image")}
     )    
     private List<Image> images;
 
