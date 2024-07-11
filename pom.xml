@@ -141,6 +141,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
@@ -174,6 +178,8 @@
 						<directory>src/main/resources</directory>
 						<includes>
 							<include>application.properties</include>
+							<include>server.crt</include>
+							<include>server.key</include>
 						</includes>
 					</resource>
 				</resources>

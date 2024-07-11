@@ -19,7 +19,7 @@ import java.io.IOException;
 
 // @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
@@ -36,12 +36,12 @@ public class AuthenticationController {
     // ) {
     //     return ResponseEntity.ok(service.register(request));
     // }
-    @PostMapping("/auth/authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
             return ResponseEntity.ok(service.authenticate(request));
         }
         
-    @PostMapping("/auth/refresh-token")
+    @PostMapping("/refresh-token")
     public void refreshToken(
         HttpServletRequest request,
         HttpServletResponse response
