@@ -26,7 +26,6 @@ jobs:
     steps:
       - name: Install SSH Client
         run: |
-          echo 'toto'
           sudo apt-get update && sudo apt-get install openssh-client sshpass
           sudo mkdir -p /etc/ssl/arcadia
 

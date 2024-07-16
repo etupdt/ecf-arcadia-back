@@ -3,26 +3,25 @@ services:
   back:
     build: 
       context: .
-      args:
-        - ENV=preprod
-        - CATALINA_HOME=/usr/local/tomcat
-    env_file: src/main/resources/preprod/env.properties
+    env_file: ./env.demo.properties
     volumes:
-      - ecf-arcadia-tomcat-preprod:/usr/local/tomcat/webapps/ROOT/images
+      - ecf-arcadia-tomcat-demo:/usr/local/tomcat/webapps/ROOT/images
     ports:
-      - 8082:8080
+      - 8083:8080
     depends_on:
       - postgres
       - mongodb
 
   postgres:
     image: postgres:14-alpine
+    env_file: ./env.demo.properties
     restart: always
     shm_size: 128mb
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - ecf-arcadia-postgres-preprod:/var/lib/postgresql/data
+      - ecf-arcadia-postgres-demo:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
 
   mongodb:
     image: mongo:8.0.0-rc8-jammy
@@ -31,9 +30,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
-      - ecf-arcadia-mongodb-preprod:/etc/mongo
+      - ecf-arcadia-mongodb-demo:/etc/mongo
+      - ./mongodb:/docker-entrypoint-initdb.d
 
 volumes:
-  ecf-arcadia-tomcat-preprod:
-  ecf-arcadia-postgres-preprod:
-  ecf-arcadia-mongodb-preprod:
+  ecf-arcadia-tomcat-demo:
+  ecf-arcadia-postgres-demo:
+  ecf-arcadia-mongodb-demo:
