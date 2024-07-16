@@ -107,3 +107,6 @@ application.properties
 docker-compose-dev.yml
 
 *.gz
+
+server.crt
+server.key
