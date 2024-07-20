@@ -3,6 +3,7 @@ services:
   back:
     image: ghcr.io/etupdt/ecf-arcadia-back:latest
     env_file: ./env.properties
+    restart: always
     volumes:
       - ecf-arcadia-tomcat-prod:/usr/local/images
     ports:

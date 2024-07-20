@@ -4,6 +4,7 @@ services:
     build: 
       context: .
     env_file: ./env.demo.properties
+    restart: always
     volumes:
       - ecf-arcadia-tomcat-demo:/usr/local/images
     ports:

@@ -28,10 +28,10 @@ public class JwtService {
     @Value("SFG313S1FGHG32SFGH21S3F2G1H32S1F3GS2QDGQ6546QDGF65QDG65QD4FG654QD6G46Q5D4G654QSD65G456S4D6F54G6Q54SD6GF446Q5D4FG654Q6D5F4G65S4D6FG4DGFQ1FHG3")
     private String secretKey;
 
-    @Value("1200000")
+    @Value("30000")
     private String jwtExpiration;
 
-    @Value("114000")
+    @Value("60000")
     private String refreshExpiration;
 
 
