@@ -36,7 +36,7 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/auth/authenticate", "/api/auth/request-token", "/api/animals/statistics", "/api/contact")  
+        .securityMatcher("/api/auth/authenticate", "/api/auth/refresh-token", "/api/animals/statistics", "/api/contact")  
         .authorizeHttpRequests(auth -> {
             auth
             .requestMatchers(HttpMethod.POST).permitAll()
