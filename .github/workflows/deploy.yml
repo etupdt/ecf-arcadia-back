@@ -72,8 +72,8 @@ jobs:
           echo "SERVER_CRT_FILE=/etc/ssl/arcadia/server.crt" >> env.properties
           echo "SERVER_KEY_FILE=/etc/ssl/arcadia/server.key" >> env.properties
 
-          echo ${{ secrets.SECRET_CRT }} > server.crt
-          echo ${{ secrets.SECRET_KEY }} > server.key
+          echo "${{ secrets.SECRET_CRT }}" > server.crt
+          echo "${{ secrets.SECRET_KEY }}" > server.key
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
