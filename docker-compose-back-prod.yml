@@ -6,6 +6,7 @@ services:
     restart: always
     volumes:
       - ecf-arcadia-tomcat-prod:/usr/local/images
+      - /etc/ssl/arcadia:/etc/ssl/arcadia
     ports:
       - 9443:9443
     depends_on:
