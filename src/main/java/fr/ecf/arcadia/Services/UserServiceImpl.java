@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserServiceImpl () {
     }
 
@@ -25,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
     
@@ -39,15 +44,15 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User newUser, Long id) {
         
         return repository.findById(id)
-        .map(user -> {
-            user.setUsername(newUser.getUsername());
-            user.setPassword(newUser.getPassword());
-            user.setFirstname(newUser.getFirstname());
-            user.setLastname(newUser.getLastname());
-            return repository.save(user);
+        .map(User -> {
+            User.setEmail(newUser.getUsername());
+            User.setPassword(newUser.getPassword());
+            User.setFirstname(newUser.getFirstname());
+            User.setLastname(newUser.getLastname());
+            return repository.save(User);
         })
         .orElseGet(() -> {
-            newUser.setId(id);
+            // newUser.setId(id);
             return repository.save(newUser);
         });
     }

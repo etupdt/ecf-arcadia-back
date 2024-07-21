@@ -13,40 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.ecf.arcadia.Services.RaceService;
-import fr.ecf.arcadia.pojo.Race;
+import fr.ecf.arcadia.Services.BreedService;
+import fr.ecf.arcadia.pojo.Breed;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping(ApiRegistration.API_REST + ApiRegistration.RACE)
-public class RaceController {
+@RequestMapping(ApiRegistration.API_REST + ApiRegistration.BREED)
+public class BreedController {
 
     @Autowired
-    private RaceService raceService;
+    private BreedService breedService;
 
     @GetMapping
-    public List<Race> getAllRaces() {
-        return raceService.getAllRaces();
+    public List<Breed> getAllBreeds() {
+        return breedService.getAllBreeds();
     }
 
     @PostMapping
-    public Race newRace(@RequestBody Race race) {
-        return raceService.addRace(race);
+    public Breed newBreed(@RequestBody Breed breed) {
+        return breedService.addBreed(breed);
     }
     
     @GetMapping("/{id}")
-    public Race one(@PathVariable Long id) {      
-        return raceService.getRace(id);
+    public Breed one(@PathVariable Long id) {      
+        return breedService.getBreed(id);
     }
 
     @PutMapping("/{id}")
-    public Race uodateRace(@RequestBody Race race, @PathVariable Long id) {        
-        return raceService.updateRace(race, id);
+    public Breed uodateBreed(@RequestBody Breed breed, @PathVariable Long id) {        
+        return breedService.updateBreed(breed, id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRace(@PathVariable Long id) {
-        raceService.deleteRace(id);
+    public void deleteBreed(@PathVariable Long id) {
+        breedService.deleteBreed(id);
     }
     
 }

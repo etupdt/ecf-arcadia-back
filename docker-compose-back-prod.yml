@@ -1,0 +1,40 @@
+version: "3.1"
+services:
+  back:
+    image: ghcr.io/etupdt/ecf-arcadia-back:latest
+    env_file: ./env.properties
+    restart: always
+    volumes:
+      - ecf-arcadia-tomcat-prod:/usr/local/images
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - mongodb
+
+  postgres:
+    image: postgres:14-alpine
+    env_file: ./env.properties
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ecf-arcadia-postgres-prod:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
+
+  mongodb:
+    image: mongo:8.0.0-rc8-jammy
+    env_file: ./env.properties
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - ecf-arcadia-mongodb-prod:/etc/mongo
+      - ./mongodb:/docker-entrypoint-initdb.d
+
+volumes:
+  ecf-arcadia-tomcat-prod:
+  ecf-arcadia-postgres-prod:
+  ecf-arcadia-mongodb-prod:

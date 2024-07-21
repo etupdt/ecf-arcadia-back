@@ -42,7 +42,7 @@ public class VeterinaryReportServiceImpl implements VeterinaryReportService {
         .map(veterinaryReport -> {
             veterinaryReport.setDate(newVeterinaryReport.getDate());
             veterinaryReport.setDetail(newVeterinaryReport.getDetail());
-            veterinaryReport.setUser(newVeterinaryReport.getUser());
+            // veterinaryReport.setUser(newVeterinaryReport.getUser());
             veterinaryReport.setAnimal(newVeterinaryReport.getAnimal());
             veterinaryReport.setFood(newVeterinaryReport.getFood());
             return repository.save(veterinaryReport);

@@ -1,5 +1,6 @@
 package fr.ecf.arcadia.pojo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class View {
 
     private String comment;
 
+    @Column(columnDefinition = "boolean default false")
     private Boolean isVisible;
 
     public View(String pseudo, String comment, Boolean isVisible) {

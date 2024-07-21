@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,17 +15,28 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fr.ecf.arcadia.pojo.Animal;
-import fr.ecf.arcadia.pojo.Image;
+import fr.ecf.arcadia.pojo.AnimalStatistic;
 import fr.ecf.arcadia.repositories.AnimalRepository;
+import fr.ecf.arcadia.repositories.AnimalStatisticRepository;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
+
+    private Gson gson = new GsonBuilder()
+    .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+    .create();
 
     @Autowired
     private AppFileService fileService;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private AnimalRepository repository;
+
+    @Autowired
+    private AnimalStatisticRepository statisticRepository;
 
     public AnimalServiceImpl () {
     }
@@ -35,24 +47,30 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal addAnimal(MultipartFile file, String animalInText) {
+    public Animal addAnimal(MultipartFile[] files, String item) {
 
-        // Gson gson = new Gson();
-        Gson gson = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-        .create();
-
-        Animal animal = gson.fromJson(animalInText, Animal.class); 
-
-        for (Image image : animal.getImages()) {
-            image.setImageName(this.fileService.saveUploadedFile(file, "animal_" + animal.getFirstname()));
-            break;
+        Animal animal = this.gson.fromJson(item, Animal.class); 
+        
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
         }
 
         return repository.save(animal);
 
     }
     
+    @Override
+    public void setAnimalStatistic(AnimalStatistic animalStatistic) {
+        this.statisticRepository.findAndIncrementStatisticsByFirstname(animalStatistic);
+    }
+
+    @Override
+    public List<AnimalStatistic> getAnimalsStatistics() {
+        return this.statisticRepository.findAll(Sort.by("date").ascending());
+    }
+
     @Override
     public Animal getAnimal(@PathVariable Long id) {
 
@@ -61,14 +79,25 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal updateAnimal(Animal newAnimal, Long id) {
+    public Animal updateAnimal(MultipartFile[] files, String item, Long id) {
         
+        Animal newAnimal = this.gson.fromJson(item, Animal.class); 
+
+        if (!(null == files)) {
+            for (MultipartFile file : files) {
+                this.fileService.saveUploadedFile(file, file.getOriginalFilename());
+            }    
+        }
+
         return repository.findById(id)
         .map(animal -> {
+            this.imageService.deleteOldImagesFile(animal.getImages(), newAnimal.getImages());
             animal.setFirstname(newAnimal.getFirstname());
             animal.setHealth(newAnimal.getHealth());
-            animal.setRace(newAnimal.getRace());
+            animal.setDescription(newAnimal.getDescription());
+            animal.setBreed(newAnimal.getBreed());
             animal.setHabitat(newAnimal.getHabitat());
+            animal.setImages(newAnimal.getImages());
             return repository.save(animal);
         })
         .orElseGet(() -> {

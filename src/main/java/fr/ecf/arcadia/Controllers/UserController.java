@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.ecf.arcadia.Services.UserService;
 import fr.ecf.arcadia.pojo.User;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping(ApiRegistration.API_REST + ApiRegistration.USER)
 public class UserController {
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User uodateUser(@RequestBody User user, @PathVariable Long id) {        
+    public User updateUser(@RequestBody User user, @PathVariable Long id) {        
         return userService.updateUser(user, id);
     }
 

@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -32,12 +31,11 @@ public class Animal {
 
     private String health;
 
-    @Lob
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_race")
-    private Race race;
+    @JoinColumn(name = "id_breed")
+    private Breed breed;
 
     @JsonIgnoreProperties(value = {"animals"}, allowSetters = true)
     @ManyToOne
@@ -47,17 +45,17 @@ public class Animal {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "animal_image",
-            joinColumns = {@JoinColumn(name = "animal_id")},
-            inverseJoinColumns = {@JoinColumn(name = "image_id")}
+            joinColumns = {@JoinColumn(name = "id_animal")},
+            inverseJoinColumns = {@JoinColumn(name = "id_image")}
     )
     private List<Image> images;
 
     @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private Set<FoodAnimal> foodAnimals;
 
     @JsonIgnoreProperties(value = {"animal"}, allowSetters = true)
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.REMOVE)
     private Set<VeterinaryReport> veterinaryReports;
 
     public Animal(String firstname, String health, List<Image> images, String description) {
