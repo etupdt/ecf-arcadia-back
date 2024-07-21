@@ -7,7 +7,7 @@ services:
     volumes:
       - ecf-arcadia-tomcat-prod:/usr/local/images
     ports:
-      - 8080:8080
+      - 9443:9443
     depends_on:
       - postgres
       - mongodb
