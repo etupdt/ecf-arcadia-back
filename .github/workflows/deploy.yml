@@ -97,8 +97,8 @@ jobs:
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no -r ./postgres ${USER}@${HOST}:.
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no -r ./mongodb ${USER}@${HOST}:.
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no ./docker-compose-back-prod.yml ${USER}@${HOST}:.
-          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.crt ${USER}@${HOST}:/
-          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.key ${USER}@${HOST}:/
+          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.crt ${USER}@${HOST}:./
+          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.key ${USER}@${HOST}:./
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.crt /etc/ssl/arcadia"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.key /etc/ssl/arcadia"
 
