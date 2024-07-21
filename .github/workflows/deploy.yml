@@ -52,15 +52,18 @@ jobs:
           
           echo "CONTEXT_PATH=" >> env.properties
 
-          echo "IMAGE_PATH=/usr/local/images/" >> env.properties
+          echo "IMAGE_PATH=/usr/local/" >> env.properties
           
           echo "SWAGGER=false" >> env.properties
           
           echo "MAIL_USER=${{ secrets.MAIL_USER }}" >> env.properties
           echo "MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}" >> env.properties
 
+          echo "MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}" >> env.properties
+          echo "MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}" >> env.properties
           echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> env.properties
           echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> env.properties
+          echo "MONGO_DB=arcadia" >> env.properties
           echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/" >> env.properties
 
           echo "SSL=true" >> env.properties
