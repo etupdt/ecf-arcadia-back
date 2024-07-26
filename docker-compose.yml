@@ -3,6 +3,8 @@ services:
   back:
     build: 
       context: .
+      args:
+        - ENV=demo
     env_file: ./env.demo.properties
     restart: always
     volumes:
