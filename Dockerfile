@@ -9,10 +9,13 @@ RUN mvn clean package -DskipTests
 
 FROM tomcat:jre21-temurin-jammy
 
+ARG ENV=prod
+
 RUN mkdir -p /usr/local/images
 
 WORKDIR /usr/local/tomcat
 
 COPY --chmod=755 --from=build /app/target/ecf-arcadia-back.war ./webapps/
 COPY --chmod=755 --from=build /app/src/main/resources/application.properties ./lib
+COPY --chmod=755 --from=build /app/src/main/resources/server.${ENV}.xml ./conf
 COPY --chmod=755 --from=build /app/src/main/resources/server/images.xml ./conf/Catalina/localhost/
