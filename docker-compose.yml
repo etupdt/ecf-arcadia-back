@@ -5,6 +5,7 @@ services:
       context: .
       args:
         - ENV=demo
+        - TLS_PASSWORD=${TLS_PASSWORD}
     env_file: ./env.demo.properties
     restart: always
     volumes:
