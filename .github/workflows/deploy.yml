@@ -74,6 +74,7 @@ jobs:
 
           echo "${{ secrets.SECRET_CRT }}" > server.crt
           echo "${{ secrets.SECRET_KEY }}" > server.key
+          echo "${{ secrets.SECRET_P7B }}" > server.p7b
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
@@ -99,9 +100,13 @@ jobs:
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.key ${USER}@${HOST}:./
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.crt /etc/ssl/arcadia"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.key /etc/ssl/arcadia"
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.p7b /etc/ssl/arcadia"
 
       - name: Deploy using docker-compose
         run: |
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo openssl pkcs7 -print_certs -in /etc/ssl/arcadia/server.p7b -out /etc/ssl/arcadia/server.pem"
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo openssl pkcs12 -export -inkey /etc/ssl/arcadia/server.key -in /etc/ssl/arcadia/server.pem -name etupdt -out /etc/ssl/arcadia/server.p12 -passout pass:${{ secrets.PASSWORD }}"
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo keytool -importkeystore -srckeystore /etc/ssl/arcadia/server.p12 -srcstoretype pkcs12 -srcalias etupdt -destkeystore /etc/ssl/arcadia/keystore.jks -deststoretype jks -deststorepass ${{ secrets.PASSWORD }} -srcstorepass ${{ secrets.PASSWORD }} -destalias etupdt"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-back-prod.yml pull"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-back-prod.yml up -d"
