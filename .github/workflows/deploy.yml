@@ -25,7 +25,6 @@ jobs:
       - name: Install SSH Client
         run: |
           sudo apt-get update && sudo apt-get install openssh-client sshpass
-          sudo mkdir -p /etc/ssl/arcadia
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -64,14 +63,6 @@ jobs:
           echo "MONGO_DB=arcadia" >> env.properties
           echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/" >> env.properties
 
-          echo "SSL=true" >> env.properties
-          echo "SERVER_PORT=9443" >> env.properties
-          echo "SSL_ENABLED=true" >> env.properties
-          echo "AUTOCONF_EXCLUDE=" >> env.properties
-          echo "SERVER_BUNDLE=mybundle" >> env.properties
-          echo "SERVER_CRT_FILE=/etc/ssl/arcadia/server.crt" >> env.properties
-          echo "SERVER_KEY_FILE=/etc/ssl/arcadia/server.key" >> env.properties
-
           echo "${{ secrets.SECRET_CRT }}" > server.crt
           echo "${{ secrets.SECRET_KEY }}" > server.key
           echo "${{ secrets.SECRET_P7B }}" > server.p7b
@@ -98,6 +89,8 @@ jobs:
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no ./docker-compose-back-prod.yml ${USER}@${HOST}:.
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.crt ${USER}@${HOST}:./
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.key ${USER}@${HOST}:./
+          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.p7b ${USER}@${HOST}:./
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mkdir -p /etc/ssl/arcadia"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.crt /etc/ssl/arcadia"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.key /etc/ssl/arcadia"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.p7b /etc/ssl/arcadia"
