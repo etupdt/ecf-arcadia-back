@@ -1,14 +1,16 @@
-version: "3.1"
+version: "3.7"
 services:
   back:
     build: 
       context: .
       args:
         - ENV=demo
-        - TLS_PASSWORD=${TLS_PASSWORD}
     env_file: ./env.demo.properties
     restart: always
+    environment:
+      - TLS_PASSWORD=${TLS_PASSWORD}
     volumes:
+      - ./:/tls
       - ecf-arcadia-tomcat-demo:/usr/local/images
     ports:
       - 8083:8080
