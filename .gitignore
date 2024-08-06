@@ -110,3 +110,5 @@ docker-compose-dev.yml
 
 server.crt
 server.key
+server.p7b
+
