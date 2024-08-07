@@ -16,7 +16,6 @@ jobs:
     env:
       USER: ${{ secrets.USER }}
       PASSWORD: ${{ secrets.PASSWORD }}
-      TLS_PASSWORD: ${{ secrets.PASSWORD }}
       HOST: ${{ secrets.HOST }}
     permissions:
       contents: read
@@ -64,10 +63,6 @@ jobs:
           echo "MONGO_DB=arcadia" >> env.properties
           echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/" >> env.properties
 
-          echo "${{ secrets.SECRET_CRT }}" > server.crt
-          echo "${{ secrets.SECRET_KEY }}" > server.key
-          echo "${{ secrets.SECRET_P7B }}" > server.p7b
-
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
@@ -76,28 +71,22 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          secrets: |
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            SECRET_P7B=${{ secrets.SECRET_P7B }}
+            TLS_PASSWORD=${{ secrets.PASSWORD }}
 
-      - name: copy env file to target server
+      - name: Deploy using docker-compose
         run: |
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no env.properties ${USER}@${HOST}:./
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no -r ./postgres ${USER}@${HOST}:.
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no -r ./mongodb ${USER}@${HOST}:.
           sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no ./docker-compose-back-prod.yml ${USER}@${HOST}:.
-          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.crt ${USER}@${HOST}:./
-          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.key ${USER}@${HOST}:./
-          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no server.p7b ${USER}@${HOST}:./
-          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mkdir -p /etc/ssl/arcadia"
-          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.crt /etc/ssl/arcadia"
-          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.key /etc/ssl/arcadia"
-          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo mv server.p7b /etc/ssl/arcadia"
-
-      - name: Deploy using docker-compose
-        run: |
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-back-prod.yml pull"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-back-prod.yml up -d"

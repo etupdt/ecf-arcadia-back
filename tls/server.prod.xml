@@ -95,10 +95,10 @@
   clientAuth="false" sslProtocol="TLS" 
   keystoreType="PKCS12"
   keystoreFile="conf/server.p12"
-  keystorePass="${PASSWORD}"
+  keystorePass="${TLS_PASSWORD}"
   truststoreType="PKCS12"
   truststoreFile="conf/server.p12"
-  truststorePass="${PASSWORD}" />
+  truststorePass="${TLS_PASSWORD}" />
 
     <!-- <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true"
