@@ -5,12 +5,12 @@ services:
       context: .
       args:
         - ENV=demo
+      #   - SECRET_KEY=
+      #   - SECRET_P7B=
+      #   - TLS_PASSWORD=
     env_file: ./env.demo.properties
     restart: always
-    environment:
-      - TLS_PASSWORD=${TLS_PASSWORD}
     volumes:
-      - ./:/tls
       - ecf-arcadia-tomcat-demo:/usr/local/images
     ports:
       - 8083:8080
