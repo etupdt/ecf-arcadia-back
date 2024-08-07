@@ -76,7 +76,7 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          secrets: |
+          build-args: |
             SECRET_KEY=${{ secrets.SECRET_KEY }}
             SECRET_P7B=${{ secrets.SECRET_P7B }}
             TLS_PASSWORD=${{ secrets.PASSWORD }}

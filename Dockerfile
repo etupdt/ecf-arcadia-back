@@ -13,14 +13,13 @@ ARG ENV=prod
 ARG SECRET_KEY
 ARG SECRET_P7B
 ARG TLS_PASSWORD
-
+RUN echo "x${SECRET_P7B}y"
 RUN touch ./tls/server.p12
-RUN echo $(cat /run/secrets/SECRET_P7B)
-RUN if [ "${ENV}" == "prod" ] ; then echo $(cat /run/secrets/SECRET_KEY) > ./tls/server.key ; fi
-# RUN if [ "${ENV}" == "prod" ] ; then echo $(cat /run/secrets/SECRET_P7B) > ./tls/server.p7b ; fi
+RUN if [ "${ENV}" == "prod" ] ; then echo ${SECRET_KEY} > ./tls/server.key ; fi
+RUN if [ "${ENV}" == "prod" ] ; then echo ${SECRET_P7B} > ./tls/server.p7b ; fi
 
-RUN if [ "${ENV}" == "prod" ] ; then openssl pkcs7 -print_certs -in /run/secrets/SECRET_P7B -out ./tls/server.pem ; fi
-RUN if [ "${ENV}" == "prod" ] ; then export VAR_PASSWORD=$(cat /run/secrets/TLS_PASSWORD) ; openssl pkcs12 -export -inkey ./tls/server.key -in ./tls/server.pem -name etupdt -out ./tls/server.p12 -passout pass:${VAR_PASSWORD} ; fi
+RUN if [ "${ENV}" == "prod" ] ; then openssl pkcs7 -print_certs -in ./tls/server.p7b -out ./tls/server.pem ; fi
+RUN if [ "${ENV}" == "prod" ] ; then openssl pkcs12 -export -inkey ./tls/server.key -in ./tls/server.pem -name etupdt -out ./tls/server.p12 -passout pass:${TLS_PASSWORD} ; fi
 # RUN keytool -importkeystore -srckeystore ./server.p12 -srcstoretype pkcs12 -srcalias etupdt -srcstorepass ${TLS_PASSWORD} -destkeystore ./keystore.jks -deststoretype jks -deststorepass ${TLS_PASSWORD} -destalias etupdt
 
 FROM tomcat:jre21-temurin-jammy
