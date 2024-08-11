@@ -15,8 +15,8 @@ ARG SECRET_P7B
 ARG TLS_PASSWORD
 
 RUN touch ./tls/server.p12
-RUN if [ "${ENV}" == "prod" ] ; then echo "${SECRET_KEY}" > ./tls/server.key ; fi
-RUN if [ "${ENV}" == "prod" ] ; then echo "${SECRET_P7B}" > ./tls/server.p7b ; fi
+RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_KEY}" > ./tls/server.key ; fi
+RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_P7B}" > ./tls/server.p7b ; fi
 RUN cat ./tls/server.p7b
 
 RUN if [ "${ENV}" == "prod" ] ; then openssl pkcs7 -print_certs -in ./tls/server.p7b -out ./tls/server.pem ; fi
