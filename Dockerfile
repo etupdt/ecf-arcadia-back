@@ -36,4 +36,4 @@ COPY --chmod=755 --from=build /app/tls/server.${ENV}.xml ./conf/server.xml
 
 COPY --chmod=755 --from=build /app/src/main/resources/application.properties ./lib
 COPY --chmod=755 --from=build /app/src/main/resources/server/images.xml ./conf/Catalina/localhost/
-# COPY --chmod=755 --from=build /app/target/ecf-arcadia-back.war ./webapps/
+COPY --chmod=755 --from=build /app/target/ecf-arcadia-back.war ./webapps/
