@@ -88,7 +88,7 @@
          Either JSSE or OpenSSL style configuration may be used regardless of
          the SSLImplementation selected. JSSE style configuration is used below.
     -->
-    <Connector port="8443"
+    <!-- <Connector port="8443"
   maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
   enableLookups="false" disableUploadTimeout="true"
   acceptCount="100" debug="0" scheme="https" secure="true"
@@ -98,7 +98,22 @@
   keystorePass="${TLS_PASSWORD}"
   truststoreType="PKCS12"
   truststoreFile="conf/server.p12"
-  truststorePass="${TLS_PASSWORD}" />
+  truststorePass="${TLS_PASSWORD}" /> -->
+
+    <Connector port="8443" protocol="HTTP/1.1"
+            connectionTimeout="20000"
+            redirectPort="8443"
+            SSLEnabled="true"
+            scheme="https"
+            secure="true"
+            sslProtocol="TLSv1.2"
+             >
+    <SSLHostConfig hostName="www.etupdt.com" protocols="TLSv1.2" >
+            <Certificate certificateKeystoreFile="conf/server.p12"
+                                 certificateKeystoreType="PKCS12"
+                        certificateKeystorePassword="${TLS_PASSWORD}" />
+        </SSLHostConfig>
+    </Connector>
 
     <!-- <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true"

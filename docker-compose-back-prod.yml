@@ -4,8 +4,6 @@ services:
     image: ghcr.io/etupdt/ecf-arcadia-back:latest
     env_file: ./env.properties
     restart: always
-    environment:
-      - TLS_PASSWORD=${TLS_PASSWORD}
     volumes:
       - ecf-arcadia-tomcat-prod:/usr/local/images
       - /etc/ssl/arcadia:/tls
