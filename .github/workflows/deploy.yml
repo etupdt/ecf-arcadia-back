@@ -63,8 +63,6 @@ jobs:
           echo "MONGO_DB=arcadia" >> env.properties
           echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/" >> env.properties
 
-          echo "TLS_PASSWORD=${{ secrets.PASSWORD }}" >> env.properties
-
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
@@ -81,7 +79,7 @@ jobs:
           build-args: |
             SECRET_KEY=${{ secrets.SECRET_KEY }}
             SECRET_P7B=${{ secrets.SECRET_P7B }}
-            TLS_PASSWORD=${{ secrets.PASSWORD }}
+            TLS_PASSWORD=${{ secrets.TLS_PASSWORD }}
 
       - name: Deploy using docker-compose
         run: |

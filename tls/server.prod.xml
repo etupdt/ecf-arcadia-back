@@ -108,25 +108,12 @@
             secure="true"
             sslProtocol="TLSv1.2"
              >
-    <SSLHostConfig hostName="www.etupdt.com" protocols="TLSv1.2" >
+    <SSLHostConfig defaultSSLHostConfigName="www.etupdt.com" >
             <Certificate certificateKeystoreFile="conf/server.p12"
                                  certificateKeystoreType="PKCS12"
-                        certificateKeystorePassword="${TLS_PASSWORD}" />
+                        certificateKeystorePassword="" />
         </SSLHostConfig>
     </Connector>
-
-    <!-- <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
-               maxThreads="150" SSLEnabled="true"
-               maxParameterCount="1000"
-               >
-        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
-        <SSLHostConfig>
-                <Certificate keystoreFile="conf/server.p12"
-                         certificateKeystorePassword="password" 
-                         keystorePass="password" keystoreType="PKCS12"
-                         keyAlias="etupdt" />
-        </SSLHostConfig>
-    </Connector> -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <!--
