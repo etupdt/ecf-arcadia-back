@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +47,12 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+
+        httpSecurity.exceptionHandling(exh -> exh.authenticationEntryPoint(
+            (request, response, exception) -> {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
+            }
+        ));
 
         return httpSecurity.build();
     }
