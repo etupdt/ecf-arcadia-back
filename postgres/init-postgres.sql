@@ -115,18 +115,18 @@ CREATE TABLE IF NOT EXISTS habitat_image (
     PRIMARY KEY (id_habitat, id_image)
 );
 
-CREATE SEQUENCE IF NOT EXISTS food_animal_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+-- CREATE SEQUENCE IF NOT EXISTS food_animal_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 CREATE TABLE IF NOT EXISTS food_animal (
-    id BIGINT DEFAULT NEXTVAL('food_animal_seq'),
+    -- id BIGINT DEFAULT NEXTVAL('food_animal_seq'),
     date_food date NOT NULL,
     gramage int NOT NULL,
     id_food BIGINT NOT NULL,
     id_animal BIGINT NOT NULL,
     FOREIGN KEY (id_food) REFERENCES food,
     FOREIGN KEY (id_animal) REFERENCES animal,
-    PRIMARY KEY (id_food, id_animal)
+    PRIMARY KEY (id_food, id_animal, date_food)
 );
-ALTER SEQUENCE food_animal_seq OWNED BY food_animal.id;
+-- ALTER SEQUENCE food_animal_seq OWNED BY food_animal.id;
 
 CREATE SEQUENCE IF NOT EXISTS token_seq START WITH 1 INCREMENT BY 50 NO MINVALUE NO MAXVALUE CACHE 1;
 CREATE TABLE IF NOT EXISTS token (

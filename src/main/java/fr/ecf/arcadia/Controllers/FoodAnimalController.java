@@ -25,8 +25,8 @@ public class FoodAnimalController {
     private FoodAnimalService foodAnimalService;
 
     @GetMapping
-    public List<FoodAnimal> getAllFoodAnimals() {
-        return foodAnimalService.getAllFoodAnimals();
+    public List<FoodAnimal> getAllFoodsAnimal(Long id_animal) {
+        return foodAnimalService.getAllFoodsAnimal(id_animal);
     }
 
     @PostMapping
