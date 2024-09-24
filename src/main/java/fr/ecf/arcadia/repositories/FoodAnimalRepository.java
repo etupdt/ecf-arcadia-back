@@ -10,7 +10,7 @@ import fr.ecf.arcadia.pojo.FoodAnimal;
 
 public interface FoodAnimalRepository extends JpaRepository<FoodAnimal, Long>  {
 
-    @Query("SELECT h FROM Habitat h WHERE id_animal = ?1")
+    @Query("SELECT f FROM FoodAnimal f WHERE f.id_animal = ?1")
     List<FoodAnimal> findAllFoodsAnimal(Long id_animal);
 
 }
