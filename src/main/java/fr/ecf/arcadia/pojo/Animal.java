@@ -34,19 +34,19 @@ public class Animal {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_breed")
+    @JoinColumn(name = "breedId")
     private Breed breed;
 
     @JsonIgnoreProperties(value = {"animals"}, allowSetters = true)
     @ManyToOne
-    @JoinColumn(name = "id_habitat")
+    @JoinColumn(name = "habitatId")
     private Habitat habitat;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "animal_image",
-            joinColumns = {@JoinColumn(name = "id_animal")},
-            inverseJoinColumns = {@JoinColumn(name = "id_image")}
+            joinColumns = {@JoinColumn(name = "animalId")},
+            inverseJoinColumns = {@JoinColumn(name = "imageId")}
     )
     private List<Image> images;
 
