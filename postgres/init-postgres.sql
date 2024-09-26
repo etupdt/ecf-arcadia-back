@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS food_animal (
     animal_id BIGINT NOT NULL,
     FOREIGN KEY (food_id) REFERENCES food,
     FOREIGN KEY (animal_id) REFERENCES animal,
-    PRIMARY KEY (food_id, animal_id, date_food)
+    PRIMARY KEY (animal_id, date_food)
 );
 ALTER SEQUENCE food_animal_seq OWNED BY food_animal.id;
 
