@@ -27,15 +27,15 @@ public class VeterinaryReport {
     private int gramage;
 
     @ManyToOne
-    @JoinColumn(name = "id_animal")
+    @JoinColumn(name = "animalId")
     private Animal animal;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_food")
+    @JoinColumn(name = "foodId")
     private Food food;
 
     public VeterinaryReport(LocalDate date, String detail) {

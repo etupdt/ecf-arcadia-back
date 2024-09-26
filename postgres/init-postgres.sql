@@ -77,10 +77,10 @@ CREATE TABLE IF NOT EXISTS animal (
     firstname varchar (100) NOT NULL,
     health text NOT NULL,
     description text NOT NULL,
-    id_habitat BIGINT NOT NULL,
-    id_breed BIGINT NOT NULL,
-    FOREIGN KEY (id_habitat) REFERENCES habitat,
-    FOREIGN KEY (id_breed) REFERENCES breed
+    habitat_id BIGINT NOT NULL,
+    breed_id BIGINT NOT NULL,
+    FOREIGN KEY (habitat_id) REFERENCES habitat,
+    FOREIGN KEY (breed_id) REFERENCES breed
 );
 ALTER SEQUENCE animal_seq OWNED BY animal.id;
 
@@ -90,43 +90,43 @@ CREATE TABLE IF NOT EXISTS veterinary_report (
     gramage int NOT NULL,
     detail text NOT NULL,
     date date NOT NULL,
-    id_animal BIGINT NOT NULL,
-    id_food BIGINT NOT NULL,
-    id_user BIGINT NOT NULL,
-    FOREIGN KEY (id_animal) REFERENCES animal,
-    FOREIGN KEY (id_food) REFERENCES food,
-    FOREIGN KEY (id_user) REFERENCES users
+    animal_id BIGINT NOT NULL,
+    food_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (animal_id) REFERENCES animal,
+    FOREIGN KEY (food_id) REFERENCES food,
+    FOREIGN KEY (user_id) REFERENCES users
 );
 ALTER SEQUENCE veterinary_report_seq OWNED BY veterinary_report.id;
 
 CREATE TABLE IF NOT EXISTS animal_image (
-    id_animal BIGINT NOT NULL ,
-    id_image BIGINT NOT NULL,
-    FOREIGN KEY (id_animal) REFERENCES animal,
-    FOREIGN KEY (id_image) REFERENCES image,
-    PRIMARY KEY (id_animal, id_image)
+    animal_id BIGINT NOT NULL ,
+    image_id BIGINT NOT NULL,
+    FOREIGN KEY (animal_id) REFERENCES animal,
+    FOREIGN KEY (image_id) REFERENCES image,
+    PRIMARY KEY (animal_id, image_id)
 );
 
 CREATE TABLE IF NOT EXISTS habitat_image (
-    id_habitat BIGINT NOT NULL ,
-    id_image BIGINT NOT NULL,
-    FOREIGN KEY (id_habitat) REFERENCES habitat,
-    FOREIGN KEY (id_image) REFERENCES image,
-    PRIMARY KEY (id_habitat, id_image)
+    habitat_id BIGINT NOT NULL ,
+    image_id BIGINT NOT NULL,
+    FOREIGN KEY (habitat_id) REFERENCES habitat,
+    FOREIGN KEY (image_id) REFERENCES image,
+    PRIMARY KEY (habitat_id, image_id)
 );
 
--- CREATE SEQUENCE IF NOT EXISTS food_animal_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+CREATE SEQUENCE IF NOT EXISTS food_animal_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 CREATE TABLE IF NOT EXISTS food_animal (
-    -- id BIGINT DEFAULT NEXTVAL('food_animal_seq'),
+    id BIGINT DEFAULT NEXTVAL('food_animal_seq'),
     date_food date NOT NULL,
     gramage int NOT NULL,
-    id_food BIGINT NOT NULL,
-    id_animal BIGINT NOT NULL,
-    FOREIGN KEY (id_food) REFERENCES food,
-    FOREIGN KEY (id_animal) REFERENCES animal,
-    PRIMARY KEY (id_food, id_animal, date_food)
+    food_id BIGINT NOT NULL,
+    animal_id BIGINT NOT NULL,
+    FOREIGN KEY (food_id) REFERENCES food,
+    FOREIGN KEY (animal_id) REFERENCES animal,
+    PRIMARY KEY (animal_id, date_food)
 );
--- ALTER SEQUENCE food_animal_seq OWNED BY food_animal.id;
+ALTER SEQUENCE food_animal_seq OWNED BY food_animal.id;
 
 CREATE SEQUENCE IF NOT EXISTS token_seq START WITH 1 INCREMENT BY 50 NO MINVALUE NO MAXVALUE CACHE 1;
 CREATE TABLE IF NOT EXISTS token (
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS token (
 	expired bool NOT NULL,
 	revoked bool NOT NULL,
 	token_type int NULL,
-	id_user BIGINT NULL,
+	user_id BIGINT NULL,
 	CONSTRAINT token_token_type_check CHECK (((token_type >= 0) AND (token_type <= 0)))
 );
 ALTER SEQUENCE token_seq OWNED BY token.id;
