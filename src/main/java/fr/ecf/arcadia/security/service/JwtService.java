@@ -25,13 +25,13 @@ public class JwtService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     
-    @Value("SFG313S1FGHG32SFGH21S3F2G1H32S1F3GS2QDGQ6546QDGF65QDG65QD4FG654QD6G46Q5D4G654QSD65G456S4D6F54G6Q54SD6GF446Q5D4FG654Q6D5F4G65S4D6FG4DGFQ1FHG3")
+    @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("300000")
+    @Value("${application.security.jwt.expiration}")
     private String jwtExpiration;
 
-    @Value("350000")
+    @Value("${application.security.jwt.refresh-token.expiration}")
     private String refreshExpiration;
 
 
@@ -61,6 +61,7 @@ public class JwtService {
     public String generateRefreshToken(
             UserDetails userDetails
     ) {
+        this.logger.info("==============================================> " + refreshExpiration);
         return buildToken(new HashMap<>(), userDetails, Long.parseLong(refreshExpiration));
     }
 
