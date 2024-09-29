@@ -12,7 +12,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: preprod
+    environment: prod
     env:
       USER: ${{ secrets.USER }}
       PASSWORD: ${{ secrets.PASSWORD }}
