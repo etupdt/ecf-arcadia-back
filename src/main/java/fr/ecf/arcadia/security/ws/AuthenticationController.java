@@ -2,12 +2,10 @@ package fr.ecf.arcadia.security.ws;
 
 import fr.ecf.arcadia.security.model.AuthenticationRequest;
 import fr.ecf.arcadia.security.model.AuthenticationResponse;
-import fr.ecf.arcadia.security.model.RegisterRequest;
 import fr.ecf.arcadia.security.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,7 @@ import java.io.IOException;
 
 // @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);

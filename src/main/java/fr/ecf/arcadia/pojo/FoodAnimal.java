@@ -28,12 +28,12 @@ public class FoodAnimal {
 
     @JsonIgnoreProperties(value = {"foodAnimals"}, allowSetters = true)
     @ManyToOne
-    @JoinColumn(name = "id_food")
+    @JoinColumn(name = "foodId")
     private Food food;
 
     @JsonIgnoreProperties(value = {"foodAnimals"}, allowSetters = true)
     @ManyToOne
-    @JoinColumn(name = "id_animal")
+    @JoinColumn(name = "animalId")
     private Animal animal;
 
     public FoodAnimal(int gramage, LocalDate dateFood, Food food, Animal animal) {
