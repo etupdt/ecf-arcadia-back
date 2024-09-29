@@ -25,6 +25,7 @@ git clone https://github.com/etupdt/ecf-arcadia-back.git
 | MONGO_DB | Nom de la database Postgres de l'application | arcadia |
 | MONGO_USER | Nom de l'utilisateur pour accès Postgres | arcadia |
 | MONGO_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
+| JWT_KEY | Clé secrète du jeton JWT | libre |
 
 - Builder, puis créer le container du front en lançant à la racine du répertoire **ecf-arcadia-front** les commandes :
 
