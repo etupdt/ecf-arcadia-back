@@ -63,6 +63,10 @@ jobs:
           echo "MONGO_DB=arcadia" >> env.properties
           echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/${MONGO_DB}" >> env.properties
 
+          echo "JWT_KEY=${{ secrets.JWT_KEY }}" >> env.properties
+          echo "JWT_EXP=300000" >> env.properties
+          echo "JWT_EXP_REFRESH=450000" >> env.properties
+
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
