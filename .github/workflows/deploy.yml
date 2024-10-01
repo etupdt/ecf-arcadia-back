@@ -39,7 +39,7 @@ jobs:
 
           echo "DB_URL=postgres" >> env.properties
           echo "DB_PORT=5432" >> env.properties
-          echo "DB_DATABASE=arcadia" >> env.properties
+          echo "DB_DATABASE=${{ env.DB_DATABASE }}" >> env.properties
           echo "DB_USER=${{ secrets.DB_USER }}" >> env.properties
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> env.properties
 
@@ -60,8 +60,8 @@ jobs:
           echo "MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}" >> env.properties
           echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> env.properties
           echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> env.properties
-          echo "MONGO_DB=arcadia" >> env.properties
-          echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/${MONGO_DB}" >> env.properties
+          echo "MONGO_DB=${{ env.MONGO_DB }}" >> env.properties
+          echo "MONGO_URL=mongodb://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASSWORD }}@mongodb:27017/${{ env.MONGO_DB }}" >> env.properties
 
           echo "JWT_KEY=${{ secrets.JWT_KEY }}" >> env.properties
           echo "JWT_EXP=300000" >> env.properties
