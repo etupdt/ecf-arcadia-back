@@ -58,6 +58,8 @@ jobs:
           echo "MAIL_USER=${{ secrets.MAIL_USER }}" >> env.properties
           echo "MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}" >> env.properties
 
+          echo "MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}" >> env.properties
+          echo "MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}" >> env.properties
           echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> env.properties
           echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> env.properties
           echo "MONGO_DB=${{ vars.MONGO_DB }}" >> env.properties
