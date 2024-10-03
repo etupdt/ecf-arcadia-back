@@ -6,10 +6,11 @@ Cet environnement de démonstration ne prend pas en charge la mise en place du c
 
 Il nécessite également un serveur ou poste de travail ayant docker et docker compose installés.
 
-- cloner les deux repo github (front et back)
+Après avoir installé la partie front-end de l'application (voir le README du repo **ecf-arcadia-front**) :
+
+- cloner le repo github (back)
 
 ```
-git clone https://github.com/etupdt/ecf-arcadia-front.git
 git clone https://github.com/etupdt/ecf-arcadia-back.git
 ```
 
@@ -27,12 +28,6 @@ git clone https://github.com/etupdt/ecf-arcadia-back.git
 | MONGO_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
 | JWT_KEY | Clé secrète du jeton JWT | libre |
 
-- Builder, puis créer le container du front en lançant à la racine du répertoire **ecf-arcadia-front** les commandes :
-
-```
-docker compose build --no-cache
-docker compose up -d
-```
 - Builder, puis créer le container du back en lançant à la racine du répertoire **ecf-arcadia-back** les commandes :
 
 ```
@@ -40,8 +35,4 @@ docker compose build --no-cache
 docker compose --env-file env.demo.properties up -d
 ```
 
-L'environnement est près. Accédez à l'application avec l'url :
-
-```
-http://localhost:4200
-```
+L'environnement est près. Le serveur back écoute sur le port 8083.
