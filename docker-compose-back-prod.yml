@@ -30,9 +30,6 @@ services:
     image: mongo:8.0.0-rc8-jammy
     env_file: ./env.properties
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ecf-arcadia-mongodb-prod:/etc/mongo
       - ./mongodb:/docker-entrypoint-initdb.d
