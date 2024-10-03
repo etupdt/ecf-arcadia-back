@@ -27,7 +27,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ecf-arcadia-mongodb-bdd:/etc/mongo
+      - ecf-arcadia-mongodb-bdd:/data/db
       - ./mongodb:/docker-entrypoint-initdb.d
 
 volumes:
