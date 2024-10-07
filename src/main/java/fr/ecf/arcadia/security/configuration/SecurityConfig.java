@@ -13,8 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +37,7 @@ public class SecurityConfig {
         // sharedSecurityConfiguration(httpSecurity);
         httpSecurity
         .csrf(csrf -> csrf.disable())
-        .securityMatcher("/api/auth/authenticate", "/api/auth/refresh-token", "/api/animals/statistics", "/api/contact")  
+        .securityMatcher("/auth/authenticate", "/auth/refresh-token", "/api/animals/statistics", "/api/contact")  
         .authorizeHttpRequests(auth -> {
             auth
             .requestMatchers(HttpMethod.POST).permitAll()
@@ -47,12 +45,15 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
-        httpSecurity.exceptionHandling(exh -> exh.authenticationEntryPoint(
-            (request, response, exception) -> {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
-            }
-        ));
+        // httpSecurity.exceptionHandling(exh -> exh.authenticationEntryPoint(
+        //     (request, response, exception) -> {
+        //         this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
+        //         this.logger.error(exception.getMessage());
+        //         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
+        //     }
+        // ));
 
         return httpSecurity.build();
     }
@@ -82,6 +83,7 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
         return httpSecurity.build();
     }
@@ -103,6 +105,7 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
         return httpSecurity.build();
     }
@@ -121,6 +124,7 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
         return httpSecurity.build();
     }
@@ -138,6 +142,7 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
+        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
         return httpSecurity.build();
     }
@@ -152,7 +157,9 @@ public class SecurityConfig {
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return httpSecurity.build();
+                this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
+
+                return httpSecurity.build();
     }
     
 }

@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -76,15 +77,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
+                if (userDetails == null) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Email ou mot de passe incorrect !");
+                }
+
                 boolean isTokenValid = tokenRepository.findByToken(jwt)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
                 
-                if(jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                if (!isTokenValid) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Session expirée ou révoquée !");
                 }
+
+                if (!jwtService.isTokenValid(jwt, userDetails)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token invalide !");
+                }
+
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             }
             

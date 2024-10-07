@@ -35,15 +35,18 @@ public class AuthenticationController {
     //     return ResponseEntity.ok(service.register(request));
     // }
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-            return ResponseEntity.ok(service.authenticate(request));
+    public ResponseEntity<AuthenticationResponse> authenticate(
+        @RequestBody AuthenticationRequest request,
+        HttpServletResponse response
+    ) throws IOException {
+            return ResponseEntity.ok(service.authenticate(request, response));
         }
         
     @PostMapping("/refresh-token")
     public void refreshToken(
         HttpServletRequest request,
         HttpServletResponse response
-        ) throws IOException {
+    ) throws IOException {
         logger.info("==========================> ws register ========= " + request.getContentLength());
         service.refreshToken(request, response);
     }

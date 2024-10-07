@@ -28,16 +28,31 @@ public class AuthenticationService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
     
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
+    public AuthenticationResponse authenticate(
+        AuthenticationRequest request,
+        HttpServletResponse response
+    ) throws IOException {
+
+        logger.info("==========================> service authenticate ========= ");
+
+        try {
+
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
-        );
+            );
+
+        } catch (BadCredentialsException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Email ou mot de passe incorrect !");
+        } catch (Exception e) {
+            throw e;
+        }
+
         var user = repository.findByEmail(request.getEmail())
-        .orElseThrow(() -> new BadCredentialsException("Bad credentials"));
-        var jwtToken = jwtService.generateToken(user);
+            .orElse(null);
+        var jwtToken = jwtService.generateToken(user);    
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
@@ -45,6 +60,7 @@ public class AuthenticationService {
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+
     }
 
     private void saveUserToken(User user, String jwtToken) {
@@ -77,7 +93,7 @@ public class AuthenticationService {
         final String refreshToken;
         final String userEmail;
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh token absent !");
         }
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
