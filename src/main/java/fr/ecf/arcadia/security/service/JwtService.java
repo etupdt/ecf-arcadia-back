@@ -1,10 +1,12 @@
 package fr.ecf.arcadia.security.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -35,13 +37,14 @@ public class JwtService {
     private String refreshExpiration;
 
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws ExpiredJwtException {
+        this.logger.info("==============================================> in extractusername " + this.jwtExpiration);
         return extractClaim(token, Claims::getSubject);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws ExpiredJwtException {
+        this.logger.info("==============================================> in extractClaim");
+        return claimsResolver.apply(extractAllClaims(token));
     }
 
     public String generateToken(User user) {
@@ -80,26 +83,25 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    public boolean isTokenValid(String token, String userName) throws ExpiredJwtException {
+        return extractUsername(token).equals(userName);
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) throws ExpiredJwtException {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
+    private Date extractExpiration(String token) throws ExpiredJwtException {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws ExpiredJwtException {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        .parserBuilder()
+        .setSigningKey(getSignInKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
     }
 
     private Key getSignInKey() {

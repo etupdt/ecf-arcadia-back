@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class ServiceController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Service newService(@RequestBody Service service) {
         return serviceService.addService(service);
     }
@@ -40,11 +42,13 @@ public class ServiceController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Service uodateService(@RequestBody Service service, @PathVariable Long id) {        
         return serviceService.updateService(service, id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteService(@PathVariable Long id) {
         serviceService.deleteService(id);
     }
