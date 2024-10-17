@@ -53,6 +53,12 @@ public class HabitatController {
         return habitatService.updateHabitat(files, item, id);
     }
 
+    @PutMapping("/comment/{id}")
+    @PreAuthorize("hasAuthority('VETERINARY')")
+    public Habitat updateHabitatByVaterinary(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item, @PathVariable Long id) {        
+        return habitatService.updateHabitatByVeterinary(files, item, id);
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteHabitat(@PathVariable Long id) {
