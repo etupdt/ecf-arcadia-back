@@ -13,7 +13,7 @@ services:
       - 5432:5432
     volumes:
       - ecf-arcadia-postgres-bdd:/var/lib/postgresql/data
-      - ./postgres:/docker-entrypoint-initdb.d
+      - ./postgres/test:/docker-entrypoint-initdb.d
 
   mongodb-bdd:
     image: mongo:8.0.0-rc8-jammy
