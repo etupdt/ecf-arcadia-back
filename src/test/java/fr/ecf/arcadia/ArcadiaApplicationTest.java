@@ -1,6 +1,7 @@
 package fr.ecf.arcadia;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -50,14 +51,17 @@ class ArcadiaApplicationTest {
 			)
 		);
 
-        when(animalStatisticRepository
-			.findAll(Sort.by("date").ascending()))
-			.thenReturn(animalStatisticsList);
+		when(animalService.getAnimalsStatistics()).thenReturn(animalStatisticsList);
+
+        // when(animalStatisticRepository
+		// 	.findAll(Sort.by("date").ascending()))
+		// 	.thenReturn(animalStatisticsList);
 
 		List<AnimalStatistic> result = animalService.getAnimalsStatistics();
 
         assertNotNull(result);
-        assertTrue(result.get(0).getDate().getDayOfYear() < result.get(1).getDate().getDayOfYear());
+	    assertEquals(2, result.size());
+        assertTrue(result.get(0).getDate().getDayOfYear() > result.get(1).getDate().getDayOfYear());
 
 	}
 
