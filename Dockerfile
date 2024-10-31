@@ -25,6 +25,7 @@ RUN if [ "${ENV}" == "prod" ] ; then openssl pkcs12 -export -inkey ./tls/server.
 FROM tomcat:jre21-temurin-jammy
 
 ARG ENV=prod
+ARG INIT
 
 RUN mkdir -p /usr/local/images
 
@@ -38,6 +39,7 @@ ARG TLS_PASSWORD
 
 RUN sed -e "s/certificateKeystorePassword=\"\"/certificateKeystorePassword=\"${TLS_PASSWORD}\"/" -i ./conf/server.xml
 
+COPY --chmod=755 --from=build /app/init/back/${INIT}/images /usr/local/images
 COPY --chmod=755 --from=build /app/src/main/resources/application.properties ./lib
 COPY --chmod=755 --from=build /app/src/main/resources/server/images.xml ./conf/Catalina/localhost/
 COPY --chmod=755 --from=build /app/target/ecf-arcadia-back.war ./webapps/

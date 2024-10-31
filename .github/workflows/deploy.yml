@@ -86,6 +86,7 @@ jobs:
             SECRET_KEY=${{ secrets.SECRET_KEY }}
             SECRET_P7B=${{ secrets.SECRET_P7B }}
             TLS_PASSWORD=${{ secrets.TLS_PASSWORD }}
+            INIT=prod
 
       - name: Deploy using docker-compose
         run: |
