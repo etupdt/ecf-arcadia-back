@@ -1,6 +1,7 @@
 package fr.ecf.arcadia.pojo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,6 +23,14 @@ public class AnimalStatistic {
   
     public AnimalStatistic() {}
   
+    public AnimalStatistic(String firstname, LocalDate date, Long qty) {
+
+        this.firstname = firstname;
+        this.date = date;
+        this.qty = qty;
+
+    }
+
     @Override
     public String toString() {
 
