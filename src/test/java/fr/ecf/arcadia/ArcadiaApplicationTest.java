@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import fr.ecf.arcadia.Services.AnimalService;
@@ -41,12 +41,12 @@ class ArcadiaApplicationTest {
 		List<AnimalStatistic> animalStatisticsList = Arrays.asList(
 			new AnimalStatistic(
 				"Jumbo", 
-				LocalDate.parse("2005-10-22"), 
+				"2005-10-22", 
 				4L
 			),
 			new AnimalStatistic(
 				"Jumbo", 
-				LocalDate.parse("2005-10-20"), 
+				"2005-10-20", 
 				4L
 			)
 		);
@@ -61,7 +61,7 @@ class ArcadiaApplicationTest {
 
         assertNotNull(result);
 	    assertEquals(2, result.size());
-        assertTrue(result.get(0).getDate().getDayOfYear() > result.get(1).getDate().getDayOfYear());
+        assertTrue(result.get(0).getDate().compareTo(result.get(1).getDate()) > 0);
 
 	}
 
