@@ -18,6 +18,7 @@ public class Token {
     @Column(unique = true)
     private String token;
 
+    @Builder.Default
     private TokenType tokenType = TokenType.BEARER;
 
     private boolean revoked;
