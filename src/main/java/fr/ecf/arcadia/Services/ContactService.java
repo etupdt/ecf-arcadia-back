@@ -4,6 +4,6 @@ import fr.ecf.arcadia.pojo.Contact;
 
 public interface ContactService {
 
-    public String sendMail(Contact contact);
+    public void sendMail(Contact contact);
 
 }
