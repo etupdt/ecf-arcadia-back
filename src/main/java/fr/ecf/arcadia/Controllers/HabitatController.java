@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class HabitatController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Habitat newHabitat(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item) {
         return habitatService.addHabitat(files, item);
     }
@@ -46,11 +48,19 @@ public class HabitatController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Habitat updateHabitat(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item, @PathVariable Long id) {        
         return habitatService.updateHabitat(files, item, id);
     }
 
+    @PutMapping("/comment/{id}")
+    @PreAuthorize("hasAuthority('VETERINARY')")
+    public Habitat updateHabitatByVaterinary(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item, @PathVariable Long id) {        
+        return habitatService.updateHabitatByVeterinary(files, item, id);
+    }
+
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteHabitat(@PathVariable Long id) {
         habitatService.deleteHabitat(id);
     }

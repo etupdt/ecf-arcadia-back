@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.ecf.arcadia.pojo.Habitat;
 
-public interface Service {
+public interface ServiceToto {
     
     public List<Habitat> getAllHabitats();
     public Habitat addHabitat(MultipartFile[] files, String item);

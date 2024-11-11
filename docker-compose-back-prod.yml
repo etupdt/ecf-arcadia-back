@@ -24,7 +24,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE}
     volumes:
       - ecf-arcadia-postgres-prod:/var/lib/postgresql/data
-      - ./postgres:/docker-entrypoint-initdb.d
+      - ./prod/postgres:/docker-entrypoint-initdb.d
 
   mongodb:
     image: mongo:8.0.0-rc8-jammy
@@ -32,7 +32,7 @@ services:
     restart: always
     volumes:
       - ecf-arcadia-mongodb-prod:/etc/mongo
-      - ./mongodb:/docker-entrypoint-initdb.d
+      - ./prod/mongodb:/docker-entrypoint-initdb.d
 
 volumes:
   ecf-arcadia-tomcat-prod:

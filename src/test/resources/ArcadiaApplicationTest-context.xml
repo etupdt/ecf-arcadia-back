@@ -5,6 +5,6 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 <bean 
-    id="habitatServiceTestImpl" 
-    class="process.service.HabitatServiceTestImpl" />
+    id="animalService" 
+    class="fr.ecf.arcadia.Services.AnimalServiceImpl" />
 </beans>

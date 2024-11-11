@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,26 +26,31 @@ public class VeterinaryReportController {
     private VeterinaryReportService veterinaryReportService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('VETERINARY') || hasAuthority('ADMIN')")
     public List<VeterinaryReport> getAllVeterinaryReports() {
         return veterinaryReportService.getAllVeterinaryReports();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('VETERINARY')")
     public VeterinaryReport newVeterinaryReport(@RequestBody VeterinaryReport veterinaryReport) {
         return veterinaryReportService.addVeterinaryReport(veterinaryReport);
     }
     
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('VETERINARY')")
     public VeterinaryReport one(@PathVariable Long id) {      
         return veterinaryReportService.getVeterinaryReport(id);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('VETERINARY')")
     public VeterinaryReport updateVeterinaryReport(@RequestBody VeterinaryReport veterinaryReport, @PathVariable Long id) {        
         return veterinaryReportService.updateVeterinaryReport(veterinaryReport, id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('VETERINARY')")
     public void deleteVeterinaryReport(@PathVariable Long id) {
         veterinaryReportService.deleteVeterinaryReport(id);
     }
