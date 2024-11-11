@@ -45,7 +45,7 @@ public class SecurityConfig {
         })
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
-        this.logger.error("==========================================>>>>>>><<<<<<<<<<<<<===========================");
+        this.logger.info("==========================================>>>>>>><<<<<<<<<<<<<===========================");
 
         return httpSecurity.build();
     }
