@@ -1,9 +1,9 @@
 
 INSERT INTO users
 (id, "role", email, firstname, lastname, "password")
-VALUES (1, 2, 'admin@test.com', 'José', 'Duseaux', '$2a$10$hTc/.Qpwe0I/hSwwmBXX1eQvHI8aqvGlxJ7VKXE5SKkkrYLibsYwa'),
-       (2, 1, 'veto@test.com', 'Alfred', 'Levetaux', '$2a$10$hTc/.Qpwe0I/hSwwmBXX1eQvHI8aqvGlxJ7VKXE5SKkkrYLibsYwa'),
-       (3, 0, 'employee@test.com', 'Juliette', 'Dupont', '$2a$10$hTc/.Qpwe0I/hSwwmBXX1eQvHI8aqvGlxJ7VKXE5SKkkrYLibsYwa');
+VALUES (1, 2, 'admin@test.com', 'José', 'Duseaux', '$2a$10$LCWL7MWZWdt8ISLeLAjeG.0UYx4uFDVFOb.5h3ZG0QJUjGi8Z2cGS'),
+       (2, 1, 'veto@test.com', 'Alfred', 'Levetaux', '$2a$10$LCWL7MWZWdt8ISLeLAjeG.0UYx4uFDVFOb.5h3ZG0QJUjGi8Z2cGS'),
+       (3, 0, 'employee@test.com', 'Juliette', 'Dupont', '$2a$10$LCWL7MWZWdt8ISLeLAjeG.0UYx4uFDVFOb.5h3ZG0QJUjGi8Z2cGS');
 
 INSERT INTO food
 (id, name)
