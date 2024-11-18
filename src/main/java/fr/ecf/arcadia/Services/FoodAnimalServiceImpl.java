@@ -19,8 +19,8 @@ public class FoodAnimalServiceImpl implements FoodAnimalService {
     }
 
     @Override
-    public List<FoodAnimal> getAllFoodAnimals() {
-        return repository.findAll();
+    public List<FoodAnimal> getAllFoodsAnimal(Long animalId) {
+        return repository.findAllByAnimalId(animalId);
     }
 
     @Override

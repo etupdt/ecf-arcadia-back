@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,11 +41,13 @@ public class ViewController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
     public View updateView(@RequestBody View view, @PathVariable Long id) {        
         return viewService.updateView(view, id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
     public void deleteView(@PathVariable Long id) {
         viewService.deleteView(id);
     }

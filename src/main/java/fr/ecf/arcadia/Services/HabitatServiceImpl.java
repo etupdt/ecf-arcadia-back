@@ -82,8 +82,24 @@ public class HabitatServiceImpl implements HabitatService {
             this.imageService.deleteOldImagesFile(habitat.getImages(), newHabitat.getImages());
             habitat.setName(newHabitat.getName());
             habitat.setDescription(newHabitat.getDescription());
-            habitat.setComment(newHabitat.getComment());
             habitat.setImages(newHabitat.getImages());
+            return repository.save(habitat);
+        })
+        .orElseGet(() -> {
+            newHabitat.setId(id);
+            return repository.save(newHabitat);
+        });
+        
+    }
+
+    @Override
+    public Habitat updateHabitatByVeterinary(MultipartFile[] files, String item, Long id) {
+        
+        Habitat newHabitat = this.gson.fromJson(item, Habitat.class); 
+
+        return repository.findById(id)
+        .map(habitat -> {
+            habitat.setComment(newHabitat.getComment());
             return repository.save(habitat);
         })
         .orElseGet(() -> {

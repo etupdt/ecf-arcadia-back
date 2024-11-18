@@ -12,6 +12,7 @@ public interface HabitatService {
     public Habitat addHabitat(MultipartFile[] files, String item);
     public Habitat getHabitat(Long id);
     public Habitat updateHabitat(MultipartFile[] files, String item, Long id);
+    public Habitat updateHabitatByVeterinary(MultipartFile[] files, String item, Long id);
     public void deleteHabitat(Long id);
 
 }

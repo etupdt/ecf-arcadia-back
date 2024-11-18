@@ -10,7 +10,7 @@ public interface ApiRegistration {
     
     final String HOURS = "hours";
     
-    final String RACE = "races";
+    final String BREED = "breeds";
     
     final String SERVICE = "services";
     

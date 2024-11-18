@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  postgres-bdd:
+    image: postgres:14-alpine
+    env_file: ./env.dev.properties
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - 5432:5432
+    volumes:
+      - ecf-arcadia-postgres-bdd:/var/lib/postgresql/data
+      - ./init/test/postgres:/docker-entrypoint-initdb.d
+
+  mongodb-bdd:
+    image: mongo:8.0.0-rc8-jammy
+    env_file: ./env.dev.properties
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ecf-arcadia-mongodb-bdd:/data/db
+      - ./init/test/mongodb:/docker-entrypoint-initdb.d
+
+volumes:
+  ecf-arcadia-postgres-bdd:
+  ecf-arcadia-mongodb-bdd:

@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +35,13 @@ public class AnimalController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Animal newHabitat(@RequestParam("files") MultipartFile[] files, @RequestParam String item) {
         return animalService.addAnimal(files, item);
     }
     
     @GetMapping("/statistics")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<AnimalStatistic> getAnimalsStatistics() {
         return animalService.getAnimalsStatistics();
     }
@@ -54,11 +57,13 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Animal updateAnimal(@Nullable@RequestParam("files") MultipartFile[] files, @RequestParam String item, @PathVariable Long id) {        
         return animalService.updateAnimal(files, item, id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteAnimal(@PathVariable Long id) {
         animalService.deleteAnimal(id);
     }

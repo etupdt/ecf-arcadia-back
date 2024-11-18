@@ -19,8 +19,8 @@ public class ContactController {
     private ContactService contactService;
 
     @PostMapping
-    public String sendMail(@RequestBody Contact contact) {
-        return contactService.sendMail(contact);
+    public void sendMail(@RequestBody Contact contact) {
+        contactService.sendMail(contact);
     }
     
 }

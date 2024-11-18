@@ -3,6 +3,7 @@ package fr.ecf.arcadia.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class FoodController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Food newFood(@RequestBody Food food) {
         return foodService.addFood(food);
     }
@@ -39,12 +41,14 @@ public class FoodController {
         return foodService.getFood(id);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public Food uodateFood(@RequestBody Food food, @PathVariable Long id) {        
         return foodService.updateFood(food, id);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteFood(@PathVariable Long id) {
         foodService.deleteFood(id);
     }

@@ -29,7 +29,7 @@ public class MongoAppConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongo(), "arcadia");
+        return new MongoTemplate(mongo(), environment.getProperty("mongodb.db"));
     }
 
 }

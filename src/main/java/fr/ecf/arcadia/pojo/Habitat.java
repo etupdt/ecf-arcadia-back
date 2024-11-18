@@ -1,6 +1,5 @@
 package fr.ecf.arcadia.pojo;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,8 +44,8 @@ public class Habitat {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "habitat_image",
-        joinColumns = {@JoinColumn(name = "habitat_id")},
-        inverseJoinColumns = {@JoinColumn(name = "image_id")}
+        joinColumns = {@JoinColumn(name = "habitatId")},
+        inverseJoinColumns = {@JoinColumn(name = "imageId")}
     )    
     private List<Image> images;
 

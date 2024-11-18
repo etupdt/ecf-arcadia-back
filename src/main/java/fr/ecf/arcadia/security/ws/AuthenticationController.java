@@ -2,12 +2,10 @@ package fr.ecf.arcadia.security.ws;
 
 import fr.ecf.arcadia.security.model.AuthenticationRequest;
 import fr.ecf.arcadia.security.model.AuthenticationResponse;
-import fr.ecf.arcadia.security.model.RegisterRequest;
 import fr.ecf.arcadia.security.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,7 @@ import java.io.IOException;
 
 // @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
@@ -36,16 +34,19 @@ public class AuthenticationController {
     // ) {
     //     return ResponseEntity.ok(service.register(request));
     // }
-    @PostMapping("/auth/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-            return ResponseEntity.ok(service.authenticate(request));
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+        @RequestBody AuthenticationRequest request,
+        HttpServletResponse response
+    ) throws IOException {
+            return ResponseEntity.ok(service.authenticate(request, response));
         }
         
-    @PostMapping("/auth/refresh-token")
+    @PostMapping("/refresh-token")
     public void refreshToken(
         HttpServletRequest request,
         HttpServletResponse response
-        ) throws IOException {
+    ) throws IOException {
         logger.info("==========================> ws register ========= " + request.getContentLength());
         service.refreshToken(request, response);
     }

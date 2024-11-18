@@ -1,10 +1,12 @@
 package fr.ecf.arcadia.security.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,23 +27,24 @@ public class JwtService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     
-    @Value("SFG313S1FGHG32SFGH21S3F2G1H32S1F3GS2QDGQ6546QDGF65QDG65QD4FG654QD6G46Q5D4G654QSD65G456S4D6F54G6Q54SD6GF446Q5D4FG654Q6D5F4G65S4D6FG4DGFQ1FHG3")
+    @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("1200000")
+    @Value("${application.security.jwt.expiration}")
     private String jwtExpiration;
 
-    @Value("114000")
+    @Value("${application.security.jwt.refresh-token.expiration}")
     private String refreshExpiration;
 
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws ExpiredJwtException {
+        this.logger.info("==============================================> in extractusername " + this.jwtExpiration);
         return extractClaim(token, Claims::getSubject);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws ExpiredJwtException {
+        this.logger.info("==============================================> in extractClaim");
+        return claimsResolver.apply(extractAllClaims(token));
     }
 
     public String generateToken(User user) {
@@ -61,6 +64,7 @@ public class JwtService {
     public String generateRefreshToken(
             UserDetails userDetails
     ) {
+        this.logger.info("==============================================> " + refreshExpiration);
         return buildToken(new HashMap<>(), userDetails, Long.parseLong(refreshExpiration));
     }
 
@@ -79,26 +83,25 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    public boolean isTokenValid(String token, String userName) throws ExpiredJwtException {
+        return extractUsername(token).equals(userName);
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) throws ExpiredJwtException {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
+    private Date extractExpiration(String token) throws ExpiredJwtException {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws ExpiredJwtException {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        .parserBuilder()
+        .setSigningKey(getSignInKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
     }
 
     private Key getSignInKey() {
