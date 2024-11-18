@@ -1,10 +1,12 @@
 # ecf-arcadia-back
 
-## Mise en place de l'environnement de demonstration
+## Mise en place de l'environnement de demonstration du back-end.
 
-Cet environnement de démonstration ne prend pas en charge la mise en place du chiffrement ssl. Seul l'environnement de production dispose de cette fonctionalité.
+Cet environnement de démonstration ne prend pas en charge la mise en place du chiffrement TLS. Seul l'environnement de production dispose de cette fonctionalité.
 
-Il nécessite également un serveur ou poste de travail ayant docker et docker compose installés.
+Le parmétrage d'envoi de mail n'est pas présent. Pour activer les envois de mail, il faut renseigner les paramètres du serveur smtp, comme décrit dans la deuxième étape, ci-dessous.
+
+Il nécessite également un serveur ou poste de travail ayant docker installé.
 
 Après avoir installé la partie front-end de l'application (voir le README du repo **ecf-arcadia-front**) :
 
@@ -14,25 +16,20 @@ Après avoir installé la partie front-end de l'application (voir le README du r
 git clone https://github.com/etupdt/ecf-arcadia-back.git
 ```
 
-- Editer le fichier **env.demo.properties** à la racine du répertoire du repo **ecf-arcadia-back**. Il faut y renseigner les variables suivantes (les autres variables ne doivent pas être modifiées):
-
-| Variable | Description | Exemple |
-| :--- | :--- | :--- |
-| DB_DATABASE | Nom de la database Postgres de l'application | arcadia |
-| DB_USER | Nom de l'utilisateur pour accès Postgres | arcadia |
-| DB_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
-| MONGO_INITDB_ROOT_USERNAME | Nom de l'utilisateur pour initialisation mongodb | libre |
-| MONGO_INITDB_ROOT_PASSWORD | Mot de passe pour initialisation mongodb | libre |
-| MONGO_DB | Nom de la database Postgres de l'application | arcadia |
-| MONGO_USER | Nom de l'utilisateur pour accès Postgres | arcadia |
-| MONGO_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
-| JWT_KEY | Clé secrète du jeton JWT | libre |
-
-- Builder, puis créer le container du back en lançant à la racine du répertoire **ecf-arcadia-back** les commandes :
-
+- Sur la branche main, vous pouvez éditer le fichier **env.demo.properties** à la racine du répertoire. Facultativement, vous pouvez y modifier les password des bases de données qui sont initialisés par défaut à la valeur "password" (variables DB_PASSWORD pour la base PostgreSql et MONGO_PASSWORD pour la base MongoDb, ainsi que MONGO_INITDB_ROOT_PASSWORD pour son initialisation). Vous pouvez également renseigner les paramètres du smtp :
 ```
-docker compose build --no-cache
-docker compose --env-file env.demo.properties up -d
+MAIL_HOST=<adresse du smtp (ex : smtp.orange.fr)>
+MAIL_PORT=<port du serveur smtp>
+MAIL_USER=<identifiant auprès du serveur smtp>
+MAIL_PASSWORD=<password auprès du serveur smtp>
 ```
 
-L'environnement est près. Le serveur back écoute sur le port 8083.
+- Lancer, à la racine du répertoire **ecf-arcadia-back**, la commande de création du container du back :
+
+```
+docker compose -f docker-compose-back-demo.yml --env-file env.demo.properties up -d
+```
+
+L'environnement est près. Le serveur back écoute sur le port 8083. 
+L'identifiant de l'administrateur est "admin@test.com" et son mot de passe par défaut est "password"
+L'environnement de demo comprend également un jeu de données de test et des images copiées au moment de l'installation. Un employé y est également créé "employee@test.com" et un vétérinaire "veto@test.com". Tout deux ayant le même mot de passe que l'adminitrateur.
