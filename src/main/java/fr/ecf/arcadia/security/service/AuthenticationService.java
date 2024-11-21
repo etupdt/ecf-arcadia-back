@@ -61,6 +61,9 @@ public class AuthenticationService {
         } catch (BadCredentialsException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Email ou mot de passe incorrect !");
             return null;
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Erreur lors de l'authentification !");
+            return null;
         }
 
     }
