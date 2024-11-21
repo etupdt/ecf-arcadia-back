@@ -24,7 +24,7 @@ VALUES (1, 'Gazelle'),
 
 INSERT INTO service
 (id, name, description)
-VALUES (1, 'Reataurant', '16 lieux de restauration vous accueillent au Zoo Arcadia. Self-service, crêperie, restauration rapide… Il y en a pour tous les goûts !'), 
+VALUES (1, 'Restaurant', '16 lieux de restauration vous accueillent au Zoo Arcadia. Self-service, crêperie, restauration rapide… Il y en a pour tous les goûts !'), 
        (2, 'Petit train', E'Partez à l’aventure sur la piste des animaux du monde le temps d\’une expédition d\’une heure en safari-train. Embarquement immédiat !'), 
        (3, 'Visite guidée', 'Ce parcours sauvage vous emmène au cœur des grands espaces et vous promet des rencontres animalières uniques.');
 

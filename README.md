@@ -30,6 +30,17 @@ MAIL_PASSWORD=<password auprès du serveur smtp>
 docker compose -f docker-compose-back-demo.yml --env-file env.demo.properties up -d
 ```
 
+- allez dans le répertoire du projet
+
+```
+cd ecf-arcadia-back
+```
+
 L'environnement est près. Le serveur back écoute sur le port 8083. 
 L'identifiant de l'administrateur est "admin@test.com" et son mot de passe par défaut est "password"
 L'environnement de demo comprend également un jeu de données de test et des images copiées au moment de l'installation. Un employé y est également créé "employee@test.com" et un vétérinaire "veto@test.com". Tout deux ayant le même mot de passe que l'adminitrateur.
+
+Si vous voulez supprimer les containers :
+```
+docker compose -f docker-compose-back-demo.yml --env-file env.demo.properties down
+```
